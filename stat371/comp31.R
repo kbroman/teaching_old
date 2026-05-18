@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("https://kbroman.org/teaching/stat371/comp31.R")
+url.show("https://kbroman.org/teaching_old/stat371/comp31.R")
 ######################################################################
 
 # The data
@@ -49,7 +49,7 @@ interaction.plot(lard.dat$lard, lard.dat$sex, lard.dat$rsp,
 ######################################################################
 # Second example: mouse: food x temp
 ######################################################################
-mouse <- read.csv("https://kbroman.org/teaching/stat371/mousedata.csv")
+mouse <- read.csv("https://kbroman.org/teaching_old/stat371/mousedata.csv")
 
 # numbers of individuals per condition
 tapply(mouse$rsp, list(mouse$food, mouse$temp), length)

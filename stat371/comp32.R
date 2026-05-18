@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("https://kbroman.org/teaching/stat371/comp32.R")
+url.show("https://kbroman.org/teaching_old/stat371/comp32.R")
 ######################################################################
 
 ###############################################

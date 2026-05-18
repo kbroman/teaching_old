@@ -10,18 +10,18 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("https://kbroman.org/teaching/stat371/comp27.R")
+url.show("https://kbroman.org/teaching_old/stat371/comp27.R")
 ######################################################################
 
 # The data used in this lecture are available at
-#   http://www.biostat.jhsph.edu/~kbroman/teaching/stat371/meioses.csv
+#   http://www.biostat.jhsph.edu/~kbroman/teaching_old/stat371/meioses.csv
 # Reference: Broman et al. (1998) Am J Hum Genet 63:861-869
 #
 # The data have three columns: family, female, male.  These last two give
 # the total number of crossovers on the 22 autosomes in each of the male
 # and female meioses.
 
-meioses <- read.csv("https://kbroman.org/teaching/stat371/meioses.csv")
+meioses <- read.csv("https://kbroman.org/teaching_old/stat371/meioses.csv")
 
 # need to make the family column a "factor" to get anova to work properly
 meioses$family <- as.factor(meioses$family)

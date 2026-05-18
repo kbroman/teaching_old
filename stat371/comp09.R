@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("https://kbroman.org/teaching/stat371/comp09.R")
+url.show("https://kbroman.org/teaching_old/stat371/comp09.R")
 ######################################################################
 
 # Assume heights of men are normally distributed with mean 69 and SD 3

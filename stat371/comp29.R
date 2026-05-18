@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("https://kbroman.org/teaching/stat371/comp29.R")
+url.show("https://kbroman.org/teaching_old/stat371/comp29.R")
 ######################################################################
 
 ##############################
@@ -42,7 +42,7 @@ anova.out <- anova(aov.out)
 ######################################################################
 # this is a complicated, so I wrote a function, placed in the file
 # func29.R; load it as follows:
-source("https://kbroman.org/teaching/stat371/func29.R")
+source("https://kbroman.org/teaching_old/stat371/func29.R")
 
 # calculate the bonferroni confidence intervals for the sugar data
 sugar.bonf <- ci.bonf(sugar$rsp, sugar$ttt)
@@ -80,7 +80,7 @@ plot(sugar.tuk)
 # 
 # These are **so** complicated, that I definitely don't want to display them
 # here.  Load them as follows:
-source("https://kbroman.org/teaching/stat371/func29.R")
+source("https://kbroman.org/teaching_old/stat371/func29.R")
 
 ######################################################################
 # Now to the example...

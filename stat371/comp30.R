@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("https://kbroman.org/teaching/stat371/comp30.R")
+url.show("https://kbroman.org/teaching_old/stat371/comp30.R")
 ######################################################################
 
 ##############################
@@ -50,7 +50,7 @@ function(x,g,n.perm=1000)
 # IL10 analysis 
 ##############################
 # read in the data
-il10 <- read.csv("https://kbroman.org/teaching/stat371/il10.csv")
+il10 <- read.csv("https://kbroman.org/teaching_old/stat371/il10.csv")
 # add a column with the log10 of the IL10 responses
 il10 <- cbind(il10,logIL10=log10(il10$IL10))
 

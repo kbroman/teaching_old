@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("https://kbroman.org/teaching/stat371/comp25.R")
+url.show("https://kbroman.org/teaching_old/stat371/comp25.R")
 ######################################################################
 # Example regarding comparison of two population variances
 A <- c(672, 747, 749, 792, 875, 888, 930, 962, 994,1295)

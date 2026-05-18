@@ -10,12 +10,12 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("https://kbroman.org/teaching/stat371/comp37.R")
+url.show("https://kbroman.org/teaching_old/stat371/comp37.R")
 ######################################################################
 ##############################
 # Michaelis-Menten example
 ##############################
-puro <- read.csv("https://kbroman.org/teaching/stat371/puromycin.csv")
+puro <- read.csv("https://kbroman.org/teaching_old/stat371/puromycin.csv")
 
 # Plot the data (just for the untreated cells)
 plot(vel ~ conc, data=puro, subset=(state=="untreated"),
@@ -85,7 +85,7 @@ lines(x,y4,lwd=2,col="blue")
 ##############################
 # From last time...
 ##############################
-sed <- read.csv("https://kbroman.org/teaching/stat371/sediment.csv",
+sed <- read.csv("https://kbroman.org/teaching_old/stat371/sediment.csv",
                 comment.char="#")
 
 # fit cubic model: Need to use I() to get the ^2 and ^3 to work
@@ -111,7 +111,7 @@ lines(x,y2,col="red",lwd=2)
 # The final example
 ##############################
 # The data:
-cl <- read.csv("https://kbroman.org/teaching/stat371/chlorine.csv",
+cl <- read.csv("https://kbroman.org/teaching_old/stat371/chlorine.csv",
                comment.char="#")
 
 # Fit the model
