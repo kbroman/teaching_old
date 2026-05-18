@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+
+\usepackage{times,amsmath}
+
+% revise margins
+\setlength{\headheight}{0.0in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\footskip}{0.0in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\parindent}{0in}
+
+\newcommand{\hsp}{\hspace*{0.2cm}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+
+{ \large
+Assignment 2 \hfill 140.778 (Adv Stat Comp)
+\\
+Due: 20 Dec \hfill 2nd term, 2000--2001 }
+
+\bigskip \bigskip
+
+{\large \textbf{EM algorithm}}
+
+\bigskip 
+
+\textbf{Part A}
+
+\bigskip
+
+Consider the linear model $y^\star = X \beta + \varepsilon$ where
+$\varepsilon \sim \text{N}(0, \sigma^2I)$.  
+
+\bigskip
+
+Suppose that $X$ is observed, but that rather than observing $y_i^\star$, we
+observe $y_i = \min\{ y_i^\star, c \}$ (where the censoring value $c$
+is known and is constant for all $i$).
+
+\bigskip
+
+Work out an EM algorithm to obtain the MLEs of $\beta$ and $\sigma$.
+(You will no doubt find it very useful to look at problem 10.8 in K
+Lange, \emph{Numerical analysis for statisticians}, pp 126--127.)  
+
+\bigskip
+
+Write an R (or Splus, or even Matlab) function to implement your
+algorithm.  
+
+\bigskip \bigskip
+
+
+
+\textbf{Part B}
+
+\smallskip
+
+\begin{enumerate}
+
+\item Download the comma-delimited file \verb|data2.csv| from the
+  course web page.  The $y$'s are censored at 10.0. 
+
+\item Fit the linear model $y = X\beta + \varepsilon$, ignoring the
+  censoring.
+
+\item Use your EM function to get the MLEs of $\beta$ and $\sigma$,
+  taking account of the censoring.
+
+\item Consider playing with starting values.  Does the likelihood
+  surface have multiple modes?
+
+\item If time permits, try using a parametric and/or nonparametric
+  bootstrap to get SEs of $\beta$ and $\sigma$.  
+
+\item If time permits, write a function to calculate the observed-data
+  log likelihood, and apply the \verb|nlm| (or \verb|nlmin|) function
+  to get MLEs.  Using \verb|hessian=TRUE| will allow you to get an
+  estimated variance matrix.
+
+\item Consider comparing the number of iterations, computer time, and
+  sensitivity to starting values for the EM vs \verb|nlm| approaches.
+
+\end{enumerate}
+
+
+\bigskip \bigskip
+
+\textbf{Useful R functions}: \\
+\verb|read.table|, \verb|nlm|, \verb|lm|,
+\verb|dnorm|, \verb|pnorm|, \verb|unix.time|
+
+\end{document}

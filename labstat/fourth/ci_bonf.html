@@ -1,0 +1,59 @@
+<html>
+<head><title>ci.bonf</title></head>
+
+<style type="text/css">
+ADDRESS {font-family: Arial, Helvetica;}
+BODY    {font-family: Arial; font-size: 14px}
+TD      {font-family: Arial, Helvetica; font-weight: Bold;}
+P       {font-family: Arial, Helvetica; text-align: justify;}
+A:link  {text-decoration:none;}
+A:vlink {text-decoration:none;}
+H1      {font-family: arial; font-size: 25px}
+H2      {font-family: arial; font-size: 22px}
+H3      {font-family: arial; font-size: 17px}
+H4      {font-family: arial; font-style: italic;}
+PRE     {font-family: courier; font-size: 14px}
+</style>
+
+<body bgcolor="#FFFFFF" vlink=blue>
+
+<pre> 
+<font color="red"># Calculate bonferroni-adjusted confidence intervals for a one-way layout</font>
+<font color="blue">ci.bonf <-</font>
+function(response, group, alpha=0.05)
+{
+  <font color="red"># calculate anova table</font>
+  anova.out <- anova(aov(response~group))
+
+  <font color="red"># within-group mean square</font>
+  ms <- anova.out[2,3]
+
+  <font color="red"># number of individuals per group</font>
+  n <- tapply(response, group, length)
+
+  <font color="red"># se's: different for each pair if the sample sizes are different</font>
+  se <- sqrt(ms * outer(n,n, function(a,b) 1/a + 1/b))
+  <font color="red"># pick out lower triangle</font>
+  se <- se[lower.tri(se)]
+
+  <font color="red"># multipier from t distribution</font>
+  df <- anova.out[2,1]  # degrees of freedom 
+  k <- length(n)
+  ntests <- choose(k, 2) # number of pairs 
+  tmult <- qt(1 - alpha/ntests, df) 
+
+  <font color="red"># calculate the pairwise differences between the sample means</font>
+  me <- tapply(response, group, mean)
+  diffs <- outer(me,me,"-")
+  <font color="red"># pick out the negative of the lower triangle</font>
+  d <- -diffs[lower.tri(diffs)]
+  <font color="red"># assign names to these</font>
+  rn <- rownames(diffs)[row(diffs)[lower.tri(row(diffs))]]
+  cn <- colnames(diffs)[col(diffs)[lower.tri(col(diffs))]]
+  names(d) <- paste(cn,rn,sep=" - ")
+
+  cbind(est=d, lower=d-tmult*se, upper=d+tmult*se)
+}
+</pre>
+
+</body></html>

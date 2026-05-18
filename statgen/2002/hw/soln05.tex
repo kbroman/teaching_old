@@ -1,0 +1,89 @@
+\documentclass[12pt]{article}
+
+% revise margins
+\setlength{\headheight}{0.0in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\footskip}{0.0in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+
+\usepackage{times}
+\usepackage{amsmath}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\noindent \textbf{Biostat 140.668} \hfill Solutions to Problem set 5
+
+\bigskip 
+
+\noindent \textbf{QTL mapping: other single-QTL models}
+
+\begin{enumerate}
+
+\item If $L$ is measured in cM, then $L \sim
+\text{gamma}(\text{shape}=2, \text{rate} = n/100)$.  
+
+\begin{enumerate}
+\item $\text{E}(L) = 200/n$, and so $n \ge 200$
+\item I used the following R code to determine that $\text{Pr}(L \le 1
+\text{ cM})
+\ge 80\%$ is true provided that $n \ge 300$.
+
+\begin{verbatim}
+    f <- function(n) pgamma(1, 2, n/100) - 0.8
+    uniroot(f, c(1,10000))$root   # (the root is ~299.43)
+\end{verbatim} %$
+
+\end{enumerate}
+
+\item We take the $\{p_{ig}\}$ as fixed and assume that the ranks
+$\{R_i\}$ are a random permutation of the numbers $\{1, 2, \dots,
+n\}$, independent of the $\{p_{ig}\}$.  We seek the mean and variance
+of $\bar{S}_g = \sum_i R_i p_{ig} / \sum_i p_{ig}$.
+
+\begin{enumerate}
+\item $R_i \sim \text{uniform}\{1, 2, \dots, n\}$, so $\text{E}(R_i) =
+\sum_{j=1}^{n} j \cdot \frac{1}{n} = \frac{n(n+1)}{2n} =
+\frac{n+1}{2}$.
+
+Thus $\text{E}(\bar{S}_g) = \sum_i p_{ig} \text{E}(R_i) / \sum_i
+p_{ig} = \dots = \frac{n+1}{2}$.
+
+\item $\text{E}(R_i^2) = \sum_{j=1}^{n} j^2 \cdot
+\frac{1}{n} = \frac{(n+1)(2n+1)}{6}$, and so $\text{var}(R_i) =
+\frac{(n+1)(2n+1)}{6} - \left(\frac{n+1}{2}\right)^2 = \dots =
+\frac{(n+1)(n-1)}{12}$.
+
+For $i \ne j$, $\text{E}(R_i R_j) = \sum_i \sum_{j:j \ne i}
+\frac{i \cdot j}{n(n-1)} = \dots = \frac{(n+1)(3n+2)}{12}$.  Thus,
+$\text{cov}(R_i, R_j) = \text{E}(R_i R_j) - (\text{E} R_i)^2 =
+\frac{(n+1)(3n+2)}{12} - (\frac{n+1}{2})^2 = \dots = -\frac{n+1}{12}$.
+
+Thus 
+\begin{eqnarray*}
+\text{var}\{\sum_i R_i p_{ig} / \sum_i p_{ig} \} & = &
+\frac{\sum_i p^2_{ig} \text{var}(R_i) + \sum_i \sum_{j: j \ne i} p_{ig}
+p_{jg} \text{cov}(R_i, R_j)}{(\sum_i p_{ig})^2} \\
+& = & \frac{\frac{(n+1)(n-1)}{12} \sum_i p^2_{ig} - \frac{n+1}{12}
+\sum_i \sum_{j: j \ne i} p_{ig} p_{jg}}{(\sum_i p_{ig})^2} \\
+& = & \left(\frac{n+1}{12}\right) \left\{ \frac{(n-1)\sum_i p^2_{ig} - \sum_i
+\sum_{j: j \ne i} p_{ig} p_{jg}}{(\sum_i p_{ig})^2} \right\} \\
+& = & \left(\frac{n+1}{12}\right) \left\{ \frac{n\sum_i p^2_{ig} - (\sum_i
+p_{ig})^2}{(\sum_i p_{ig})^2} \right\} 
+\end{eqnarray*}
+
+\item Finally, 
+$$H  =  \sum_g \left(\frac{n - \sum_i p_{ig}}{n}\right) \;
+\frac{[\bar{S}_g - \text{E}(\bar{S}_g)]^2}{\text{var}(\bar{S}_g)} $$
+We just plug in the expressions from (a) and (b), and we are done.
+
+\end{enumerate}
+ 
+\end{enumerate}
+
+\end{document}

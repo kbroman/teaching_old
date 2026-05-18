@@ -1,0 +1,75 @@
+
+Armstrong NJ, McPeek MS, Speed TP (2006) Incorporating interference
+into linkage analysis for experimental crosses. Biostatistics
+7:374-386
+
+Broman KW (2003) Mapping quantitative trait loci in the case of a
+spike in the phenotype distribution. Genetics 163:1169-1175
+
+Broman KW, Rowe LB, Churchill GA, Paigen K (2002) Crossover
+interference in the mouse. Genetics 160:1123-1131.
+
+Broman KW, Speed TP (2002) A model selection approach for the
+identification of quantitative trait loci in experimental crosses
+(with discussion). J R Statist Soc B 64:641-656, 737-775
+
+Churchill GA, Doerge RW (1994) Empirical threshold values for
+quantitative trait mapping. Genetics 138:963-971
+
+Dempster AP, Laird NM, Rubin DB (1977) Maximum likelihood from
+incomplete data via the EM algorithm (with discussion). Journal of the
+Royal Statistical Society Series B 39:1-38
+
+Feenstra B, Skovgaard IM, Broman KW (2006) Mapping quantitative trait
+loci by an extension of the Haley-Knott regression method using
+estimating equations. Genetics 173:2269-2282
+
+Haley CS, Knott SA (1992) A simple regression method for mapping
+quantitative trait loci in line crosses using flanking
+markers. Heredity 69:315-324
+
+Kao C-H, Zeng Z-B (1997) General formulas for obtaining the MLEs and
+the asymptotic variance-covariance matrix in mapping quantitative
+trait loci when using the EM algorithm. Biometrics 53:653-665
+
+Kruglyak L, Lander ES (1995) A nonparametric approach for mapping
+quantitative trait loci. Genetics 139:1421-1428
+
+Lander ES, Botstein D (1989) Mapping Mendelian factors underlying
+quantitative traits using RFLP linkage maps. Genetics 121:185-199
+
+Lander ES, Green P (1987) Construction of multilocus genetic linkage
+maps in humans. Proceedings of the National Academy of Sciences USA
+84:2363-2367
+
+McPeek MS, Speed TP (1995) Modeling interference in genetic
+recombination. Genetics 139:1031-1044
+
+Rabiner LR (1989) A tutorial on hidden Markov models and selected
+applications in speech recognition. Proceedings of the IEEE 77:257-286
+
+Sen S, Churchill GA (2001) A statistical framework for quantitative
+trait mapping. Genetics 159:371-387
+
+Xu S, Atchley WR (1996) Mapping quantitative trait loci for complex
+binary diseases using line crosses. Genetics 143:1417-1424
+
+Yi N (2004) A unified Markov chain Monte Carlo framework for mapping
+multiple quantitative trait loci. Genetics 167:967-975
+
+Yi N, Yandell BS, Churchill GA, Allison DB, Eisen EJ, Pomp D (2005)
+Bayesian model selection for genome-wide epistatic QTL
+analysis. Genetics 170:1333-1344
+
+Zeng Z-B (1993) Theoretical basis for separation of multiple linked
+gene effects in mapping quantitative trait loci. Proceedings of the
+National Academy of Sciences USA 90:10972-10976
+
+Zeng Z-B (1994) Precision mapping of quantitative trait loci. Genetics
+136:1457-1468
+
+Zeng Z-B, Kao C-H, Basten CJ (1999) Estimating the genetic
+architecture of quantitative traits. Genet Res 74:279-289
+
+Zhao H, Speed TP, McPeek MS (1995) Statistical analysis of crossover
+interference using the chi-square model. Genetics 139:1045-1056

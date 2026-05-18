@@ -1,0 +1,99 @@
+<html> <head>
+<title>Solutions for lab 2</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for lab 2</h3>
+
+<p class=noindent><ol>
+  <li><p class=noindent><i>Concerning the distribution of the observed allele frequencies
+       in the initial population, how do they vary for different sample sizes
+       and different generating allele frequencies?</i>
+
+       <p class=noindent>The distribution of the observed allele
+       frequencies is more tight (smaller standard deviation) in the
+       case of a larger initial population, and is centered around the
+       generating allele frequency.<p>
+
+  <li><p class=noindent><i>Concerning the trace of the observed allele
+frequencies across generation, how is the case of 100 couples
+different than the case of 25 couples, in terms of the fluctuation in
+the observed allele frequency across time/generation?</i>
+
+       <p class=noindent>The observed allele frequencies across
+       generations vary more wildly in the case of a smaller
+       population (and more slowly in the case of a larger population).<p>
+
+  <li><p class=noindent><i>Concerning the investigation of allele
+       fixation:</i><p>
+       <ol type="a">
+       <li><p class=noindent><i>What proportion of the time was the
+	    allele frequency fixed at 100%?</i>
+	    <p class=noindent>Using code like
+	    <code>mean(res[,1])</code>, one finds that it is fixed at
+	    100% approximately 20% of the time.  Of course, this will
+	    vary according to the particular 100 replicates we
+	    observed.<p>
+
+       <li><p class=noindent><i>What was the average and SD of the generation time at which
+	    fixation occurred?</i>
+	    <p class=noindent>Using code like
+	    <code>mean(res[,2])</code> and <code>sd(res[,2])</code>,
+	    one finds that the time of allele fixation has mean about
+	    180. and SD about 180.
+     </ol><p>
+
+<li><p class=noindent><i>Explain why the command
+<code>pbinom( qbinom(0.75,120,0.512), 120, 0.512)</code> doesn't return exactly
+0.75.</i>
+
+     <p class=noindent>Because of the discreteness of the binomial
+     distribution, there is no one number that is exactly the 75th
+     percentile.  If X ~ binomial(n=120, p=0.512), Pr(X &lt;= 64) =
+     71% and Pr(X &lt;= 65) = 77%.  The 75th percentile is defined to
+     be the smallest number q such that Pr(X &lt;= q) &gt;= 75%.<p>
+
+<li><p class=noindent><i>If 10% of rats in Baltimore are infected with a particular
+virus, and I obtain a random sample of 100 rats, what is the chance
+that at least 10 of them are infected?</i>
+
+     <p class=noindent>Let X ~ binomial(n=100, p=0.1).  We seek
+     Pr(X &gt;= 10) = 1 - Pr(X &lt;= 9) = <code> 1 - pbinom(9, 100,
+     0.1)</code> = 55%.<p>
+
+<li><p class=noindent><i>Use the function <code>ppois</code> to find the probability that a
+Poisson random variable with mean 0.5 will exceed (i.e., is strictly
+greater than) 1.  Give both the answer and the R code.</i>
+
+     <p class=noindent>Let X ~ Poisson(mean=0.5).  We seek Pr(X
+     &gt; 1) = 1 - Pr(X &lt;= 1) = <code> 1 - ppois(1, 0.5)</code> = 9%.<p>
+
+<li><p class=noindent><i>Suppose the heights of adult men in the US follow a normal
+distribution with mean 69 in and SD 3 in.  If I pick a random adult
+male, what is the chance that he will be over 67 inches? over 72
+inches?  Give both the answers and the R code.</i>
+
+     <p class=noindent>Let X ~ normal(mean=69, sd=3).
+     <p class=noindent>Pr(X &gt; 67) = <code> 1 - pnorm(67, 69,
+     3)</code> = 75%.
+     <p class=noindent>Pr(X &gt; 72) = <code> 1 - pnorm(72, 69,
+     3)</code> = 16%.
+
+
+</ol>
+
+<hr>
+<p class=noindent>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><p class=small>
+<!-- hhmts start -->
+Last modified: Thu Mar 11 11:56:15 EST 2004
+<!-- hhmts end -->
+</table></body></html>

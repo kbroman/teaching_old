@@ -1,0 +1,182 @@
+<html> <head>
+<title>Solutions for homework for lecture 8</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for the homework problems for lecture 8</h3>
+
+<p><ol>
+  <li><p class=noindent>Let <i>p</i> = Pr(male) = 105/205 = (approx)
+	    0.512.  Let <i>X</i> = number of males in 6 random newborns.  The
+	    <i>X</i> ~ binomial(<i>n</i>=6, <i>p</i>=0.512). Let p(x)
+       = Pr(<i>X</i>=x) 
+
+	    <p><table cellpadding=2 cellspacing=0 border>
+	    <tr><td align=center><p class=noindent><b>x</b></td>
+	        <td align=center><p class=noindent><b>p(x)</b></td></tr>
+	    <tr><td align=center><p class=noindent>0</td>
+	        <td align=center><p class=noindent>1.3%</td></tr>
+	    <tr><td align=center><p class=noindent>1</td>
+	        <td align=center><p class=noindent>8.5%</td></tr>
+	    <tr><td align=center><p class=noindent>2</td>
+	        <td align=center><p class=noindent>22.3%</td></tr>
+	    <tr><td align=center><p class=noindent>3</td>
+	        <td align=center><p class=noindent>31.2%</td></tr>
+	    <tr><td align=center><p class=noindent>4</td>
+	        <td align=center><p class=noindent>24.6%</td></tr>
+	    <tr><td align=center><p class=noindent>5</td>
+	        <td align=center><p class=noindent>10.3%</td></tr>
+	    <tr><td align=center><p class=noindent>6</td>
+	        <td align=center><p class=noindent>1.8%</td></tr></table>
+	    
+	    <p class=noindent>In R, type <code>round(dbinom(0:6, 6,
+	    105/205)*100, 1)</code><p>
+	    
+       <li><p class=noindent>Let <i>n</i> = number of slides examined and <i>X</i> =
+	    number that are positive.  If the sample is positive, then
+	    <i>X</i> ~ binomial(<i>n</i>, <i>p</i>=0.2).
+
+	    <p class=noindent>We seek <i>n</i> such that Pr(<i>X</i> =
+	    0) <= 1%.  But Pr(<i>X</i>=0) =
+	    (1-<i>p</i>)<sup><i>n</i></sup> = (0.8)<sup><i>n</i></sup>
+
+	    <p class=noindent>Thus, we wish to solve the following
+	    equation for <i>n</i>: (0.8)<sup><i>n</i></sup> <= 0.01.
+
+	    <p class=noindent>The solution: take logs.
+
+	    <p class=center>(0.8)<sup><i>n</i></sup> <= 0.01<br>
+	    ln{(0.8)<sup><i>n</i></sup>} <= ln{0.01}<br>
+	    <i>n</i> ln{(0.8)} <= ln{0.01}<br>
+	    <i>n</i> (-0.223) <= (-4.605)<br>
+	    <i>n</i> >= 20.6
+
+	    <p class=noindent>Thus, we must examine at least 21
+	    slides.
+
+	    <p class=noindent>That is a lot of work!  An improved
+	    method would be recommended.<p>
+
+       <li><p class=noindent>
+	    <ol type="a">
+	    <li><p class=noindent>Let S = {fly has singed bristles}
+		 and W = {fly has white eyes}.  S and W are
+		 independent, Pr(S) = 1/2, and Pr(W) = 1/4.
+
+		 <p class=noindent> Pr(S and W) = Pr(S) Pr(W) = (1/2)
+		 &times; (1/4) = 1/8 = (approx) 13%.<p>
+
+	    <li><p class=noindent>Let W<sub>i</sub> = {fly i has white
+		 eyes}. The W<sub>i</sub> are independent, and
+		 Pr(W<sub>i</sub>) = 1/4.
+
+		 <p class=noindent>Pr(all four have white eyes) =
+		 Pr(W<sub>1</sub> and W<sub>2</sub> and W<sub>3</sub>
+		 and W<sub>4</sub>) = (1/4)<sup>4</sup> = (approx)
+		 4/1000.<p>
+
+	    <li><p class=noindent>First, note that Pr(a fly has
+		 neither white eyes nor singed bristles) = Pr(not W
+		 and not S) = Pr(not W) &times; Pr(not S) = (3/4)
+		 &times; (1/2) = 3/8.
+
+		 <p class=noindent>Pr(none of four flies have either
+		 white eyes or singed bristles) = (3/8)<sup>4</sup> =
+		 (approx) 2%.<p>
+
+	    <li><p class=noindent>Pr(at least one of two flies has
+		 white eyes or singed bristles or both) = 1 -
+		 Pr(neither has white eyes or singed bristles or both)
+		 = 1 - Pr(both are not W and not S) = 1 -
+		 (3/8)<sup>2</sup> = (approx) 86%.
+
+		 </ol><p>
+
+	    <li><p class=noindent>Pr(exactly 50 heads in 100 tosses) =
+		 (100 choose 50) (0.5)<sup>100</sup> = (approx) 8%.
+
+		 <p class=noindent>Pr(exactly 3 heads in 10 tosses) =
+		 (10 choose 3) (0.5)<sup>10</sup> = (approx) 12%.
+
+		 <p class=noindent>Thus, the latter is more likely.
+
+		 <p class=noindent>You can use the following
+		 R code, if your hand calculator is not sufficiently
+		 advanced: <code>dbinom(50,100,0.5)</code> and
+		 <code>dbinom(3,10,0.5)</code><p> 
+
+	    <li><p class=noindent>Pr(getting a double-six) =
+		      1/36.  Thus, if we let <i>X</i> = number of
+		      double-sixes in 36 rolls of a pair of fair,
+		      six-sided dice, <i>X</i> ~ binomial(<i>n</i>=36,
+		      <i>p</i>=1/36).<p>
+		 <ol type="a">
+		<li><p class=noindent>X ~ binomial(<i>n</i>=36, <i>p</i>=1/36)
+		 <li><p class=noindent>Pr(<i>X</i>=2) = (36 choose 2)
+		      (1/36)<sup>2</sup> (35/36)<sup>34</sup> =
+		      (approx) 19%<p>
+		 <li><p class=noindent>E(<i>X</i>) = 36 &times; (1/36)
+		      = 1<p>
+		 <li><p class=noindent>SD(<i>X</i>) = [36 &times;
+		      (1/36) &times; (35/36)]<sup>(1/2)</sup> =
+		      (approx) 0.99<p>
+		 <li><p class=noindent>Pr(<i>X</i> > 2) = 1 - Pr(X=0)
+		      - Pr(X=1) - Pr(X=2) = (approx) 8%. 
+	       </ol>
+		      <p class=noindent>Parts (a) and (d) would be a
+	       lot easier on the computer: <code>dbinom(2, 36,
+	       1/36)</code> and <code>1-pbinom(2,36,1/36)</code>.
+
+
+  <li><p class=noindent><i>X</i> follows a
+       Poisson(lambda=2) distribution.<p>
+       <ol type="a">
+         <li><p class=noindent>E(<i>X</i>) = 2.<p>
+         <li><p class=noindent>SD(<i>X</i>) = sqrt(2) = (approx) 1.4.<p>
+         <li><p class=noindent>Pr(<i>X</i> = 0) =
+	      e<sup>-2</sup> = (approx) 14%.<p>
+         <li><p class=noindent>Pr(<i>X</i> = 5) = e<sup>-2</sup>
+	      2<sup>5</sup> / 5! = (approx) 3.6%.<p>
+         <li><p class=noindent>Pr(<i>X</i> &gt; 2) = 1 - Pr(<i>X</i> =
+	      0) - Pr(<i>X</i> = 1) - Pr(<i>X</i> = 2) = 1 -
+	      e<sup>-2</sup> - e<sup>-2</sup> 2 - e<sup>-2</sup>
+	      2<sup>2</sup> / 2! = (approx) 32%.<p>
+       </ol><p>
+
+  <li><p class=noindent>E(<i>Y</i>) = 30 and SD(<i>Y</i>) = 5.<p>
+       <ol type="a">
+       <li><p class=noindent><i>Z</i> = (<i>Y</i> - 30)/5.
+	    E(<i>Z</i>)=0 and SD(<i>Z</i>)=1.<p>
+       <li><p class=noindent><i>X</i> = - <i>Y</i>.  
+	    E(<i>X</i>) = -E(<i>Y</i>) = -30 and SD(<i>X</i>) =
+	    SD(<i>Y</i>) = 5.<p>
+       <li><p class=noindent><i>R</i> = 5 + <i>Y</i>/3.  
+	    E(<i>R</i>) = 5 + E(<i>Y</i>)/3 = 15 and SD(<i>R</i>) =
+	    SD(<i>Y</i>)/3 = (approx) 1.67.
+	    </ol><p>
+
+   <li><p class=noindent><i>U</i> ~ uniform(5, 10).<p>
+	<ol type="a">
+	<li><p class=noindent>E(<i>U</i>) = (5+10)/2 = 7.5<p>
+	<li><p class=noindent>Pr(<i>U</i> = 6) = 0 (<i>U</i> is a
+	     continuous random variable.)<p>
+	<li><p class=noindent>Pr(<i>U</i> &gt; 6) = 4/5 = 80%<p>
+	<li><p class=noindent>Pr(7 &lt; <i>U</i> &lt; 9) = 2/5 = 40%
+      </ol>
+
+</ol>
+
+<hr>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Wed Feb 22 09:44:17 EST 2006
+<!-- hhmts end -->
+</table></body></html>

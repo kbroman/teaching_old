@@ -1,0 +1,62 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>C Programming: Books</title>
+</head>
+
+<body text="#000066" bgcolor="#C0C0C0">
+
+<h1 align="center">Expanding a gzipped tar files</h1>
+
+<p>One often obtains gzipped tar files, named like
+<code>myfile.tgz</code> or <code>myfile.tar.gz</code>.  This document
+explains how to expand such files.
+
+<p>Suchs files generally contain multiple files/directories combined
+using the command <code>tar</code> and then compressed using the
+command <code>gzip</code>.
+
+<p>Let's consider a file named <code>myfile.tgz</code>
+
+<h3>On athena (Solaris unix)</h3>
+
+<p>You need to call <code>gzip</code> and <code>tar</code> separately,
+but you can command them into a single command using "pipes".
+
+<ol>
+<li>To test the integrity of the file and see its contents:
+
+<blockquote><code><pre>gzip -dc myfile.tgz | tar tvf -
+</pre></code></blockquote>
+
+<li>To expand the file:
+
+<blockquote><code><pre>gzip -dc myfile.tgz | tar xvf -
+</pre></code></blockquote>
+</ol>
+
+<h3>In linux</h3>
+
+<p>The linux version of <code>tar</code> can automatically call
+<code>gzip</code>, so you need only call <code>tar</code> and you
+don't need to use a pipe.
+
+<ol>
+<li>To test the integrity of the file and see its contents:
+
+<blockquote><code><pre>tar tzvf myfile.tgz
+</pre></code></blockquote>
+
+<li>To expand the file:
+
+<blockquote><code><pre>tar xzvf myfile.tgz
+</pre></code></blockquote>
+</ol>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<html>
+<head><title>Homework for lecture 2</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists II</h2>
+<h3>Solutions for the homework problems for lecture 2</h3>
+
+<ol> 
+  <li><p class=noindent>Here is the R code for creating the table and calculating the
+      expected counts under the null hypothesis of p<sub>i</sub>=1/10
+      for all i.
+<pre>
+    mydata <- c(98, 99, 100, 89, 107, 114, 100, 112, 85, 96)
+    n <- sum(mydata)
+    ex <- n * rep(1/10, 10)</pre>
+
+  <ol type="a">
+    <li><p class=noindent>Here is the code for calculating the chi-square
+      test statistic and corresponding P-value.
+<pre>
+    chi <- sum( (mydata-ex)^2 / ex)               <font color="red"># value = 7.56</font>
+    1 - pchisq(chi, 9)                            <font color="red"># P-value = 0.58</font></pre>
+
+    <li><p class=noindent>Here is the code for calculating the LRT
+	statistic and corresponding P-value. 
+<pre>
+    lrt <- 2 * sum( mydata * log(mydata/ex) )     <font color="red"># value = 7.58</font>
+    1 - pchisq(lrt, 9)                            <font color="red"># P-value = 0.58</font></pre>
+
+    <li><p class=noindent>Here is some code for using computer
+	simulations to estimate P-values.
+
+<pre>
+    n.sim <- 1000
+    results <- matrix(ncol=2, nrow=n.sim)
+    for(i in 1:n.sim) {	
+       <font color="red"># simulate data</font>
+       simdat <- rmultinom(1, n, rep(0.1,10))
+
+       <font color="red"># calculate statistics</font>
+       chi.sim <- sum( (simdat - ex)^2 / ex)
+       lrt.sim <- 2 * sum( simdat * log(simdat/ex) )
+
+       results[i,] <- c(chi.sim, lrt.sim)
+     }
+
+     <font color="red"># p-value for chi-square test</font>
+     mean(results[,1] >= chi)  <font color="red"># p-value = 0.57 (for my simulations)</font>
+ 	
+     <font color="red"># p-value for likelihood ratio test (LRT)</font>
+     mean(results[,2] >= lrt)  <font color="red"># p-value = 0.58 (for my simulations)</font></pre>
+
+    <li>We <i>fail to reject</i> the null hypothesis of equal
+	frequencies.  The observed differences in the counts could
+        reasonably be ascribed to chance variation.</li><p>
+</ol>      
+
+<li><p class=noindent>With the second version of the table,
+    in applying either the chi-square test or
+    likelihood ratio test, we would get identical statistics and
+    P-values.  However, these tests look for general differences from
+    equal frequencies, and not the sort of trend in this observed
+    table.
+
+    <p class=noindent>With such data, we would want to use a different
+    statistical test, such as of whether the mean (or median) is equal
+    to 4.5 or not.  Of course, one would ideally choose to perform
+    such a test before obtaining the data rather than after having
+    observed such a trend.
+
+</ol>      
+
+<hr>
+<p class=noindent>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="../index.html">Main page</a> | <a
+href="index.html">4th term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Tue Mar 28 17:52:44 EST 2006
+<!-- hhmts end -->
+</table></body></html>

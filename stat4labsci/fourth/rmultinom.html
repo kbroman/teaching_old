@@ -1,0 +1,35 @@
+<html>
+<head><title>rmultinom</title></head>
+
+<style type="text/css">
+ADDRESS {font-family: Arial, Helvetica;}
+BODY    {font-family: Arial; font-size: 14px}
+TD      {font-family: Arial, Helvetica; font-weight: Bold;}
+P       {font-family: Arial, Helvetica; text-align: justify;}
+A:link  {text-decoration:none;}
+A:vlink {text-decoration:none;}
+H1      {font-family: arial; font-size: 25px}
+H2      {font-family: arial; font-size: 22px}
+H3      {font-family: arial; font-size: 17px}
+H4      {font-family: arial; font-style: italic;}
+PRE     {font-family: courier; font-size: 14px}
+</style>
+
+<body bgcolor="#FFFFFF" vlink=blue>
+
+<pre> 
+<font color="red"># Simulate from a multinomial distribution</font>
+<font color="blue">rmultinom <-</font>
+function(n=100, p=c(0.25,0.5,0.25))
+{
+  p <- p/sum(p) <font color="red"># ensure that the probabilities sum to 1</font>
+  if(any(p < 0)) stop("probabilities p must be non-negative")
+  k <- length(p)
+
+  x <- table(factor(sample(1:k, n, repl=TRUE, prob=p), levels=1:k))
+  names(x) <- NULL
+  x
+}
+</pre>
+
+</body></html>

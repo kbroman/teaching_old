@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+
+% revise margins
+\setlength{\headheight}{0.0in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\footskip}{0.0in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+
+\usepackage{times}
+\usepackage{amsmath}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\noindent \textbf{Biostat 140.668} \hfill Solutions to Problem set 2
+
+\bigskip 
+
+\noindent \textbf{Hidden Markov models}
+
+\begin{enumerate}
+
+\item Let $G_i^\star$ denote the underlying phase-known genotypes, which we
+know to follow a Markov chain.  (So the $G_i$ at least form a hidden
+Markov model, where $G_i | G_i^\star$ is deterministic.)
+
+We wish to show that 
+$$\Pr(G_{i+1} = g_{i+1} \ | \ G_1, \dots,  G_{i-1}, G_i=g_i) = 
+\Pr(G_{i+1}=g_{i+1} \ | \ G_i=g_i)$$
+
+In the case that $g_i = AA \text{ or } BB$, this is obvious, since
+then $G_i \equiv G_i^\star$ and $G_{i+1}^\star$ (and thus also
+$G_{i+1}$) is conditionally independent of $G_1, \dots, G_{i-1}$ given
+$G_i^\star$.
+
+I've found it difficult to prove this in general.  I've convinced
+myself that it is true, but I've not found an easy way to show it.  
+If you find a proof, please let me know.  The key seems to be proving
+that
+$$\Pr(G_i^\star = g_i^\star \ | \ G_1, \dots, G_{i-1}, G_i = g_i) = 
+\Pr(G_i^\star = g_i^\star \ | \ G_i = g_i)$$
+
+Of course, it's a simple matter to prove, by complete enumeration, that
+$$\Pr(G_3 = g_3 \ | \ G_1 = g_1, G_2 = g_2) = \Pr(G_3 = g_3 \ | \ G_2
+= g_2)$$
+I think it's worth doing at least this.
+
+
+\item I don't really feel like writing down the details for the
+Viterbi algorithm.  If you have any questions about it, please ask me.
+
+
+
+ 
+\end{enumerate}
+
+\end{document}

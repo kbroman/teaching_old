@@ -1,0 +1,159 @@
+<html> <head>
+<title>Solutions for homework for lecture 6</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for the homework problems for lecture 6</h3>
+
+<p><ol>
+  <li>
+       <ol type="a">
+       <li><p class=noindent>Suppose that A and B are <i>mutually
+	    exclusive</i>.<p>
+	    <ol type="i">
+            <li><p class=noindent>Pr(A or B) = Pr(A) + Pr(B)<p>
+            <li><p class=noindent>Pr(A and B) = 0, since they can't
+		 both happen.
+		 </ol><p>
+       <li><p class=noindent>Suppose that A and B are
+	    <i>independent</i>.<p>
+	    <ol type="i">
+            <li><p class=noindent>Pr(A and B) = Pr(A) &times; Pr(B)<p>
+            <li><p class=noindent>Pr(A or B) = Pr(A) + Pr(B) - Pr(A) &times;
+		 Pr(B)
+		 </ol><p>
+       <li><p class=noindent>Suppose that A and B are <i>both</i>
+	    mutually exclusive and independent.
+	    <p class=noindent>Since A and B are independent, Pr(A and
+	    B) = Pr(A) &times; Pr(B).  But since A and B are mutually
+	    exclusive, Pr(A and B) = 0.  Thus Pr(A) &times; Pr(B) = 0.  And
+	    so either Pr(A) = 0 or Pr(B) = 0 or both.  In other words,
+	    either A or B (or both) <i>cannot happen</i>!
+	    <p class=noindent>The point: generally when we talk about
+	    independent events, they are <i>not</i> mutually
+	    exclusive, and vice versa.  
+	    </ol><p>
+
+  <li>
+       <p class=noindent>Recall that we pick a woman at random from the
+       population.  Let U = {She is unaffected}, C = {She is a
+       carrier}, A = {her brother is affected and her parents are both
+       unaffected}, B = {her first child is affected}, D = {at least one of
+       her five children is affected}.  Note that by "carrier," I
+       mean "has genotype +d."
+       <p class=noindent>Calculate the following.<p>
+       <ol type="a">
+       <li><p class=noindent>Pr(C | U) = 2<i>p</i>(1-<i>p</i>) /
+	    [2<i>p</i>(1-<i>p</i>) + (1-<i>p</i>)<sup>2</sup>] = ... = 
+	    2<i>p</i> / (1 + <i>p</i>) = approx 2.0%.
+	    <p>
+       <li><p class=noindent>Pr(C | U and A) = 2/3 = approx 67%, since her parents
+	    must both be carriers.<p>
+       <li><p class=noindent>Pr(B | U and A) = Pr(C | U and A) &times; Pr(B
+	    | C and U and A) = (2/3) &times; [(1/2) &times; <i>p</i>]
+	   = p/3 = approx 3/1000.
+	    <p class=noindent>Note that Pr(B | C and U and A) = Pr(B |
+	    C).  We're assuming here that the woman is mating at
+	    random (<i>with respect to genotype at this gene</i>).
+	    Thus the allele contributed by the father has probability
+	    <i>p</i> of being the disease allele.<p>
+       <li><p class=noindent>Let E = {none of the five children is
+	    affected}, F<sub>0</sub> = {father has genotype ++},
+	    F<sub>1</sub> = {father has genotype +d}, and
+	    F<sub>2</sub> = {father has genotype ++}.
+	    <p class=noindent>Note that Pr(E | C) = Pr(F<sub>0</sub>)
+	    &times; Pr(E | C and F<sub>0</sub>) + Pr(F<sub>1</sub>)
+	    &times; Pr(E | C and F<sub>1</sub>) + Pr(F<sub>2</sub>)
+	    &times; Pr(E | C and F<sub>2</sub>) <br>
+	    = (1-<i>p</i>)<sup>2</sup> &times; 1 + 2 <i>p</i> (1-<i>p</i>) &times;
+	    (3/4)<sup>5</sup> + <i>p</i><sup>2</sup> &times;
+	    (1/2)<sup>5</sup> = approx 98.5%.
+	    <p class=noindent>Thus, Pr(D | U and A) = Pr(C | U and A) &times; Pr(D
+	    | C and U and A) <br>
+	    = Pr(C | U and A) &times; [1 - Pr(E | C)] <br>
+	    = approx 1%.
+       </ol><p>
+
+  <li>
+     <ol type="a">
+       <li><p class=noindent>Pr(G<sub>1</sub>) = Pr(A) &times;
+	    Pr(G<sub>1</sub> | A) + Pr(B) &times; Pr(G<sub>1</sub> | B) =
+	    (1/3) &times; (1/2) + (2/3) &times; (1/5) = 3/10 = 30%
+	    <p>
+       <li><p class=noindent>Pr(G<sub>2</sub> | A and G<sub>1</sub>) =
+	    4/9<p>
+       <li><p class=noindent>Pr(G<sub>2</sub> | A) = 1/2<p>
+       <li><p class=noindent>Pr(G<sub>2</sub> | B and G<sub>1</sub>) =
+	    1/9<p>
+       <li><p class=noindent>Pr(G<sub>2</sub> | G<sub>1</sub>) =
+	   Pr(G<sub>2</sub> and G<sub>1</sub>) / Pr(G<sub>1</sub>)
+	   
+	    <p class=noindent>Note that Pr(G<sub>2</sub> and G<sub>1</sub>) = Pr(A) &times;
+	   Pr(G<sub>1</sub> and G<sub>2</sub> | A) + Pr(B) &times;
+	   Pr(G<sub>1</sub> and G<sub>2</sub> | B) = (1/3) &times;
+	   (5/10) &times; (4/9) + (2/3) &times; (2/10) &times; (1/9) =
+	   4/45 = approx 8.9%
+
+	   <p class=noindent>We found that Pr(G<sub>1</sub>) = 3/10 (part a).
+
+	   <p class=noindent>Thus, Pr(G<sub>2</sub> | G<sub>1</sub>) = (4/45) /
+	   (3/10) = 8/27 = approx 30%<p>
+	   
+       <li><p class=noindent>Pr(exactly one green ball) =
+	    Pr(G<sub>1</sub> and not G<sub>2</sub>) + Pr(G<sub>2</sub>
+	    and not G<sub>1</sub>) = 2 &times; Pr(G<sub>1</sub> and not
+	    G<sub>2</sub>) = 2 &times; [Pr(A) &times; Pr(G<sub>1</sub> and not
+	    G<sub>2</sub>) + Pr(B) &times; Pr(G<sub>1</sub> and not
+	   G<sub>2</sub>)] = 2 &times; [(1/3) &times; (5/10) &times;
+	   (5/9) + (2/3) &times; (2/10) &times; (8/9)] = 114/270 =
+	   approx 42%.
+	    <p>
+
+       <li><p class=noindent> Note that Pr(at least one green ball |
+	    A) = 1 - Pr(no green balls | A) = 1 - (1/2) &times; (4/9) = 7/9
+	    = approx 78%.
+	    Pr(at least one green ball | B) = 1 - (4/5) &times; (7/9) =
+	    17/45 = approx 38%.
+
+	    <p class=noindent>Thus Pr(at least one green ball) = (1/3)
+	    &times; (7/9) + (2/3) &times; (17/45) = approx 51%.
+
+	    <p class=noindent>And so Pr(A | at least one green ball) = Pr (A)
+	    &times; Pr(at least one green ball | A) / Pr(at least one green
+	    ball) = (1/3) &times; (7/9) / [(1/3) &times; (7/9) + (2/3) &times; (17/45)]
+	    = approx 51%.
+	    </ol><p>
+
+  <li><p class=noindent> Let F = {the champion is the colt's father}
+       and C = {the colt carries the Y marker}.<p>
+       <ol type="a">
+       <li><p class=noindent>Pr(F) = 1/2.<p>
+       <li><p class=noindent>Pr(F | C) = Pr(F) Pr(C|F) / [Pr(F)
+	    Pr(C|F) + Pr(not F) Pr(C | not F)] =
+	    (1/2) &times; (1) / [(1/2) &times; 1 + (1/2) &times; 0.02] = approx 98%.<p>
+
+       <li><p class=noindent>Given that the mare was exposed to a
+	    total of 1000 stallions, we have Pr(F) = 1/1000.
+	    Thus Pr(F | C) = Pr(F) Pr(C|F) / [Pr(F)
+	    Pr(C|F) + Pr(not F) Pr(C | not F)] =
+	    (1/1000) &times; (1) / [(1/1000) &times; 1 + (999/1000) &times; 0.02] =
+	    approx 4.8%. 
+	    </ol><p>
+
+
+</ol>
+
+<hr>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Wed Feb 22 09:44:30 EST 2006
+<!-- hhmts end -->
+</table></body></html>

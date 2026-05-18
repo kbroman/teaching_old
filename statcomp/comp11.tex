@@ -1,0 +1,928 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage{amsmath}
+%\usepackage[dvips]{graphicx}
+%\usepackage{epic}
+
+% revise margins
+\setlength{\headheight}{0in}
+\setlength{\topmargin}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.0in}
+\setlength{\footskip}{0.4in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\parindent}{0in}
+\setlength{\parsep}{12pt}
+\setlength{\textwidth}{6.5in}
+
+% san serif font
+\renewcommand{\familydefault}{cmss}
+
+% 3rd itemize level is + rather than *
+\renewcommand{\labelitemiii}{$\circ$}
+
+\newcommand{\E}{\text{E}}       % expected value
+\newcommand{\var}{\text{var}}   % variance
+\newcommand{\cov}{\text{cov}}   % covariance
+\newcommand{\cor}{\text{cor}}   % correlation
+\renewcommand{\Pr}{\text{Pr}}     % probability
+\newcommand{\iid}{\text{ iid }} % iid
+
+% spacing commands
+\newcommand{\HRule}{\rule{\linewidth}{4pt}}
+\newcommand{\hsphalf}{\hspace*{0.5cm}}
+\newcommand{\hspone}{\hspace*{1cm}}
+\newcommand{\hsptwo}{\hspace*{2cm}}
+\newcommand{\vsphalf}{\vspace*{0.5cm}}
+\newcommand{\vspone}{\vspace*{1cm}}
+\newcommand{\vsptwo}{\vspace*{2cm}}
+
+% page number centered at bottom
+\pagestyle{plain}
+
+\begin{document}
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Numerical integration}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+To be fancy, our topic is \emph{quadrature}.
+
+\bigskip
+
+We seek $I = \int_a^b f(x) \; dx$.
+
+\bigskip \bigskip
+
+\textbf{Method 1}: \emph{The extended midpoint rule}
+\begin{enumerate}
+\item Pick $N$ large.
+\item Let $x_i = a + (i - 1/2)h$, $h = (b-a)/N$, \\
+   for $i = 1, \ldots, N$.
+\item Let $f_i = f(x_i)$
+\item Then $I \approx h \sum_i f_i$
+\end{enumerate}
+
+\bigskip
+
+\textbf{Sample code}:
+\begin{verbatim}
+    emr <-
+    function(f,a,b,n=1000)
+    {
+      h <- (b-a)/n
+      h*sum(f( seq(a+h/2, b, by=h) ))
+    }
+\end{verbatim}
+
+\textbf{Points}:
+\begin{itemize}
+\item This is the simplest thing to do
+\item Error $O(1/N^2)$
+\item Don't use this in production
+\end{itemize}
+
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{The basics}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+In the following, we consider $x_0, x_1, \ldots x_N$ such that
+$x_i = x_0 + i h$, and write $f_i = f(x_i)$.
+
+\bigskip
+
+\textbf{Note}: The common choice is $x_0 = a$ and $h = (b-a)/N$,
+
+\hspone so that $x_N = b$.
+
+\bigskip \bigskip
+
+\textbf{Closed formula}: use $x_0, x_N$
+
+\bigskip
+
+\textbf{Open formula}: don't use $x_0, x_N$ (e.g., when it's hard
+to calculate $f$ at one of $a$ or $b$)
+
+\bigskip \bigskip
+
+\textbf{Basic rules}
+
+\bigskip
+
+\hspone \emph{Trapezoidal rule}: \hfill $\int_{x_0}^{x_1} f(x) \; dx
+\approx h \{ \frac{1}{2} f_0 + \frac{1}{2} f_1 \}$
+
+\bigskip
+
+\hspone \emph{Simpson's rule}: \hfill $\int_{x_0}^{x_2} f(x) \: dx
+\approx h \{ \frac{1}{3} f_0 + \frac{4}{3} f_1 + \frac{1}{3} f_2 \}$
+
+\bigskip \bigskip
+
+\hspone \emph{Extrapolation formulas}:
+\hfill $\int_{x_0}^{x_1} f(x) \: dx \approx h \{ f_1 \}$
+
+\bigskip
+
+\hfill $\int_{x_0}^{x_1} f(x) \: dx \approx h \{ \frac{3}{2} f_1 -
+\frac{1}{2} f_2 \}$
+
+\bigskip
+
+\hfill $\int_{x_0}^{x_1} f(x) \: dx \approx h \{ \frac{23}{12} f_1 -
+\frac{16}{12} f_2 + \frac{5}{12}f_3 \}$
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{The basics} (continued)}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+\textbf{Extended trapezoidal rule (closed)}
+$$ \int_{a}^{b} f(x) \; dx = h \{ {\textstyle \frac{1}{2}} f_0 + f_1 + f_2 + \ldots +
+f_{N-1} + {\textstyle \frac{1}{2}} f_N \} + O({\textstyle \frac{1}{N^2}})$$
+
+\bigskip \bigskip
+
+\textbf{Extended Simpson's rule (closed)}
+\begin{eqnarray*}
+\int_{a}^{b} f(x) \; dx & = & h \{ {\textstyle \frac{1}{3}}f_0 +
+{\textstyle \frac{4}{3}}f_1 + {\textstyle \frac{2}{3}}f_2 + {\textstyle \frac{4}{3}}f_3
++ \ldots \\
+& & \hsptwo + {\textstyle \frac{2}{3}}f_{N-2} + {\textstyle
+  \frac{4}{3}}f_{N-1} + {\textstyle \frac{1}{3}}f_N \} + O({\textstyle
+  \frac{1}{N^4}})
+\end{eqnarray*}
+
+\vsptwo
+
+\textbf{Extended trapezoidal rule (open)}
+$$ \int_{a}^{b} f(x) \; dx = h \{ {\textstyle \frac{3}{2}} f_1 + f_2 + \ldots +
+f_{N-2} + {\textstyle \frac{3}{2}} f_{N-1} \} + O({\textstyle \frac{1}{N^2}})$$
+
+\bigskip \bigskip
+
+\textbf{Extended Simpson's rule (open)}
+\begin{eqnarray*}
+\int_{a}^{b} f(x) \; dx & = &h \{ {\textstyle \frac{27}{12}} f_1 + 0 +
+  {\textstyle \frac{13}{12}} f_3 + {\textstyle \frac{4}{3}} f_4 +
+{\textstyle \frac{2}{3}} f_5 + \ldots \\
+& & + {\textstyle \frac{4}{3}} f_{N-4} + {\textstyle \frac{13}{12}}
+  f_{N-3} + 0 + {\textstyle \frac{27}{12}} f_{N-1} \} + O({\textstyle \frac{1}{N^4}})
+\end{eqnarray*}
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Trapezoidal rule: Implementation}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+An important point regarding the trapezoidal rule: to go from $N$ to
+$2N$, you can make use of your previous work.
+
+\bigskip
+
+We make use of the following basic engine for the trapezoidal rule.  I
+assume that the function \verb|f| is vectorized and that \verb|n| is a
+power of 2.
+
+\fontsize{18}{18} \selectfont
+
+\begin{verbatim}
+    subtrap <-
+    function(f,a,b,n=1)
+    {
+      h <- (b-a)/n
+      if(n==1) return( h*mean( f(c(a,b)) ) )
+      else return(h*sum( f(seq(a+h,b,by=2*h)) ))
+    }
+\end{verbatim}
+
+\fontsize{20}{25} \selectfont
+
+We use the above function by taking $I_{i+1} = \frac{1}{2} I_i +
+S_{i+1}$, where $S_i$ is the output from the function \verb|subtrap|
+and $I_i$ is the estimated integral using $N = 2^{i-1}$ steps.
+
+\fontsize{18}{18} \selectfont
+
+\begin{verbatim}
+    trap <-
+    function(f,a,b,tol=1e-8,maxit=1000)
+    {
+      i.old <- subtrap(f,a,b,1); n <- 2
+      for(i in 2:maxit) {
+        s <- subtrap(f,a,b,n)
+        i.new <- i.old/2 + s
+        if(abs(i.new-i.old) < tol) break
+        i.old <- i.new
+        n <- n*2
+      }
+      i.new
+    }
+\end{verbatim}
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Simpson's rule: Implementation}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+It is interesting to note that you can use the \verb|subtrap|
+function to obtain Simpson's rule.
+
+\bigskip
+
+Let $S_i$ be the output from \verb|subtrap| with $N = 2^{i-1}$, and
+let $I_i$ be our estimate of the integral at step $i$.
+
+\bigskip
+
+For Simpson's rule, we take $I_1 = 2S_1/3$ and then $I_{i+1} = I_i/2 +
+(4S_{i+1} - S_i)/3$.
+
+\fontsize{18}{18} \selectfont
+
+\begin{verbatim}
+    simp <-
+    function(f,a,b,tol=1e-8,maxit=1000)
+    {
+      i.old <- subtrap(f,a,b,1)*2/3
+      n <- 2;  old.s <- 0
+      for(i in 2:maxit) {
+        s <- subtrap(f,a,b,n)
+        i.new <- (i.old/2 + (4*s - old.s)/3)
+        if(abs(i.new-i.old) < tol) break
+        i.old <- i.new; old.s <- s
+        n <- n*2
+      }
+      i.new
+    }
+\end{verbatim}
+
+\fontsize{20}{25} \selectfont
+
+Consider the example $\int_0^2 x^2(1-x)sin(x^2) \; dx$.
+
+\bigskip
+
+With \verb|tol=1e-8|, Simpson's rule uses $N = 512$ while the
+trapezoidal rule uses $N = 512 \times 128$.
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Further explanation}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+Let $S(h)$ and $T(h)$ denote the approximations from Simpson's rule
+and the trapezoidal rule, respectively.
+
+\bigskip
+
+Then $S(h) = \frac{1}{3} \{ 4 T(h) - T(2h) \}$
+
+\bigskip \bigskip
+
+The \verb|subtrap| function provides $X(h) = T(h) - \frac{1}{2}
+T(2h)$.
+
+\begin{eqnarray*}
+\text{Thus } S(h) & = & {\textstyle \frac{1}{3}} \{ 4 T(h) - T(2h) \}
+\\ \\
+& = & {\textstyle \frac{1}{3}} \{ [2 T(2h) - {\textstyle \frac{1}{2}}
+            T(4h)] + [4 T(h) - \\
+            & & \hspone \hsphalf 2 T(2h)] - [T(2h) + {\textstyle \frac{1}{2}}
+T(4h)] \} \\ \\
+& = & {\textstyle \frac{1}{2}} \cdot {\textstyle \frac{1}{3}} \{ 4
+            T(2h) - T(4h) \} + {\textstyle \frac{4}{3}} \{T(h) - \\
+            & & \hspone \hsphalf {\textstyle \frac{1}{2}} T(2h) \} -
+            {\textstyle \frac{1}{3}} \{ T(2h) - {\textstyle \frac{1}{2}}
+            T(4h) \} \\ \\
+& = & {\textstyle \frac{1}{2}}S(2h) + {\textstyle \frac{1}{3}} \{
+            4 X(h) - X(2h) \}
+\end{eqnarray*}
+
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Romberg's algorithm}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+Simpson's rule combines $T(h)$ and $T(2h)$ in a way that some error
+terms are cancelled.  In Romberg's algorithm, this method is
+continued.
+
+\bigskip
+
+If the function being integrated is sufficiently smooth, impressive
+gains are obtained.
+
+\vspone
+
+Let $T_{m0} = T[(b-a)2^{-m}]$ and define
+\begin{eqnarray*}
+T_{mn} & = & \frac{4^n T_{m,n-1} - T_{m-1,n-1}}{4^n-1}\\ \\
+       & = & T_{m,n-1} - {\textstyle \frac{1}{4^n-1}} \{ T_{m-1,n-1} -
+       T_{m,n-1} \}
+\end{eqnarray*}
+
+\vspone
+
+The Romberg matrix:
+$$ \begin{pmatrix} T_{00} \\
+T_{10} & T_{11} \\
+T_{20} & T_{21} & T_{22} \\
+T_{30} & T_{31} & T_{32} & T_{33} \\
+\vdots & \vdots & \vdots & \vdots \end{pmatrix} $$
+
+\vspone
+
+Recall that if $X_i$ is the value from the $i$th call to
+\verb|subtrap|, $T_{00} = X_1$ and $T_{i0} = X_{i+1} + \frac{1}{2}
+T_{i-1,0}$.
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Improper integrals}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+The above methods need to be revised in the case that
+\begin{enumerate}
+\item The integrand goes to a finite limit at finite upper and lower
+limits, but cannot be calculated right on one of the limits (e.g.,
+$\sin x/x$ at $x=0$).
+
+\item The upper limit of integration is $\infty$ or the lower limit is
+$-\infty$.
+
+\item There is a singularity at either limit (e.g., $x^{-1/2}$ at
+$x=0$.
+
+\item There is a singularity at a known spot between the limits.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Solution}: Replace the function \verb|subtrap| with a version
+of the extended midpoint rule, tripling $N$ at each call.
+
+\setlength{\unitlength}{1.5cm}
+\begin{center} \begin{picture}(10.5,3.0)
+
+% lines
+\put(0,0.5){\line(1,0){9}}
+\put(0,0.35){\line(0,1){0.3}}
+\put(9,0.35){\line(0,1){0.3}}
+\put(0,1.5){\line(1,0){9}}
+\put(0,1.35){\line(0,1){0.3}}
+\put(9,1.35){\line(0,1){0.3}}
+\put(0,2.5){\line(1,0){9}}
+\put(0,2.35){\line(0,1){0.3}}
+\put(9,2.35){\line(0,1){0.3}}
+
+% internal ticks
+\put(1,0.35){\line(0,1){0.3}}
+\put(2,0.35){\line(0,1){0.3}}
+\put(3,0.35){\line(0,1){0.3}}
+\put(4,0.35){\line(0,1){0.3}}
+\put(5,0.35){\line(0,1){0.3}}
+\put(6,0.35){\line(0,1){0.3}}
+\put(7,0.35){\line(0,1){0.3}}
+\put(8,0.35){\line(0,1){0.3}}
+\put(9,0.35){\line(0,1){0.3}}
+\put(3,1.35){\line(0,1){0.3}}
+\put(6,1.35){\line(0,1){0.3}}
+
+% arrows
+\thicklines
+\put(4.5,2.9){\vector(0,-1){0.4}}
+\put(4.5,1.1){\vector(0,1){0.4}}
+\put(4.5,0.1){\vector(0,1){0.4}}
+
+\put(1.5,1.9){\vector(0,-1){0.4}}
+\put(1.5,0.1){\vector(0,1){0.4}}
+\put(7.5,1.9){\vector(0,-1){0.4}}
+\put(7.5,0.1){\vector(0,1){0.4}}
+
+\put(0.5,0.9){\vector(0,-1){0.4}}
+\put(2.5,0.9){\vector(0,-1){0.4}}
+\put(3.5,0.9){\vector(0,-1){0.4}}
+\put(5.5,0.9){\vector(0,-1){0.4}}
+\put(6.5,0.9){\vector(0,-1){0.4}}
+\put(8.5,0.9){\vector(0,-1){0.4}}
+
+%text
+\put(9.5,0.35){$N = 3^2$}
+\put(9.5,1.35){$N = 3^1$}
+\put(9.5,2.35){$N = 3^0$}
+\end{picture} \end{center}
+
+Use code like
+
+{\Large \verb|  x <- c(seq(a+h/2,b,by=3*h), seq(a+2.5*h,b,by=3*h))|}
+
+\smallskip
+
+We can easily revise \verb|trap| and \verb|simp| to use this.  We thus
+solve issue 1.
+
+
+
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Improper integrals} (continued)}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+To solve the other issues, we use two techniques:
+\begin{enumerate}
+\item Change of variables.
+\item Break up the integral into pieces
+\end{enumerate}
+
+\bigskip
+
+For example, if $a > 0$ and $f(t) \to 0$ faster than $1/t^2 \to 0$ as
+$t \to \infty$, then we can use $u = 1/t$ as follows:
+
+\bigskip
+
+\hspone $\int_a^\infty f(t) \; dt = \int_{0}^{1/a} \frac{1}{u^2}
+f(\frac{1}{u}) \; du$
+
+\bigskip
+
+This also works if $b < 0$ and the lower limit is $-\infty$.
+
+\bigskip
+
+I think that's enough on that; you can see the general direction.  See
+Lange \S *.* for additional advice and examples.
+
+
+
+
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Gaussian quadrature}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+The amazingly cool technique of \emph{Gaussian quadrature\/} is
+appropriate when we wish to integrate $f(x)$ against a probability
+measure $\mu$.
+
+\bigskip
+
+For fixed points $x_i$ and positive weights $w_i$,
+$$ \int_{-\infty}^{\infty} f(x) \; d\mu(x) \approx \sum_{i=0}^{k}
+w_i f(x_i)$$
+
+\bigskip
+
+For the trapezoidal rule, $\mu = \text{uniform}(a,b)$ and the $x_i$
+are uniformly spaced.  Generally, $\mu$ is non-uniform and the $x_i$
+cluster in regions of high probability.
+
+\bigskip
+
+If $\mu$ possesses an orthonormal polynomial sequence $\psi_n(x)$ for
+$n=0, 1, 2, \ldots$, then $x_0, x_1, \ldots, x_k$ are the roots of
+$\psi_{k+1}(x)$.
+
+\vspone
+
+\textbf{Fact}: If $\mu$ is not concentrated at a finite number of
+points, then the roots $\{x_i\}$ are real and distinct, and there
+exist positive weights $w_i$ such that the quadrature formula above is
+exact when $f(x)$ is a polynomial of degree $\le 2k+1$.
+
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Orthonomial polynomials} (continued)}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+Consider the inner product
+$$<f,g> = \int_{-\infty}^{\infty} f(x) g(x)
+\; d\mu(x)$$
+
+\bigskip
+
+The orthonomial polynomials mentioned above satisfy
+
+$<p_i,p_j> = \delta_{ij}$ (i.e., $= 0$ if $i \ne j$ and $=1$ if $i=j$)
+
+\vspone
+
+They can be constructed as follows:
+
+\bigskip
+
+Take $p_{-1}(x) = 0$ and $p_0(x) = 1$.
+
+\bigskip
+
+For $j \ge 0$, let $q_{j+1} = (x-a_j)p_j(x) - b_j p_{j-1}(x)$
+
+\hspone and let $p_j = q_j / \sqrt{<q_j, q_j>}$
+
+\vspone
+
+My recommendation: if you come across an integral of the form $\int
+f(x) \; d\mu(x)$, consider using Gaussian quadrature, and check
+out \emph{Numerical Recipes in C}, \S *.*.
+
+\bigskip
+
+Rather than calculating the abscissas $x_i$ and weights $w_i$,
+you may wish to pull them from tables (in an old and dusty book).
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Example 1}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+[Chakravarti et al., Genetics 128:175--182, 1991]
+
+\bigskip
+
+Suppose a genome consists of $k$ chromosomes of common length $L$, and
+that we have typed $m$ markers on a set of fully informative
+offspring.  Let $G = kL$ be the genome length.
+
+\bigskip
+
+Let $n_{ij}$ be the number of meioses typed on both markers $i$ and
+$j$ and $r_{ij}$ be the number of recombinants observed.
+
+\bigskip
+
+We assume (falsely) no interference and (even more falsely) that the
+pairs are independent, and wish to estimate $L$ (and hence $G$).
+
+\bigskip
+
+\textbf{Log likelihood}:
+
+\begin{center} \begin{tabular}{l}
+$l(L) = \sum_{i \ne j} \log \{ \int_{0}^{\theta'} \theta^{r_{ij}}
+(1-\theta)^{n_{ij}-r_{ij}} f(\theta; L) \; d\theta $ \\
+\multicolumn{1}{r}{$+ (k-1)(1/2)^{n_{ij}} \}$}
+\end{tabular} \end{center}
+
+where $\theta' = (1-e^{-2L})/2$ (ie, the maximum recombination
+fraction for a chromosome of length $L$) and $f(\theta; L) = \{ 2L +
+\log(1-2\theta)\}/\{L^2(1-2\theta)\}$.
+
+\bigskip
+
+We need to calculate that integral (and then maximize $l$ with respect
+to $L$, to get the MLE $\hat{L}$).
+
+\bigskip
+
+\textbf{Major problem}: The integral can be \emph{really} small, hence
+we have a problem with \emph{underflow}.
+
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Example 1} (continued)}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+\textbf{The trick}:
+
+\bigskip
+
+Let $g_i = \log f_i$. Suppose we wish to calculate $\log(f_1 +
+f_2)$.
+\begin{eqnarray*}
+\text{Then } \log(f_1 + f_2) & = & \log(e^{g_1} + e^{g_2}) \\
+& = & \log\{ e^{g_1} ( 1 + e^{g_2 - g_1}) \} \\
+& = & g_1 + \log(1 + e^{g_2 - g_1})
+\end{eqnarray*}
+
+\bigskip
+
+``Obviously,'' a problem occurs when $g_2 \gg g_1$, in which case
+$\log(f_1 + f_2) \approx g_2$, but the above formula will result in an
+overflow.  Thus, I recommend the following:
+
+\fontsize{20}{20}
+
+\begin{verbatim}
+    addlog <-
+    function(a, b, thresh=200)
+    {
+      if(b > a + thresh) return(b)
+      else if(a > b + thresh) return(a)
+      else return(a + log(1+exp(b-a)))
+    }
+\end{verbatim}
+
+\fontsize{20}{25}
+
+Note that one may also want a function \verb|subtractlog()|.
+
+\bigskip
+
+We can modify any code to do numerical integration, to calculate
+$\log\{\int_a^b f(x) \; dx\}$ working only with $\log f(x)$.  \\ This
+will avoid the underflow problem.
+
+\bigskip
+
+To calculate $S = \log \sum_{i=1}^n f_i$, use
+
+\hspone $S_1 = g_1$, $S_{i+1} = \verb|addlog|(S_i, g_{i+1})$
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Example 2}}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+[Broman and Weber, Am J Hum Genet 66:1911--1926, 2000]
+
+\bigskip
+
+Suppose we observe vectors $y_1, y_2, \ldots, y_N$, the realizations
+of a \emph{thinned} stationary gamma renewal process on the interval
+$[0, L]$ (where $L$ is known), with shape parameter $\nu$.  We seek to
+estimate $\nu$.
+
+\bigskip
+
+Let's focus on a single realization $y = (y_1, \ldots, y_m)$.
+
+\bigskip
+
+\setlength{\unitlength}{0.5cm}
+\begin{center} \begin{picture}(30,2)
+
+% lines
+\put(0,0.5){\line(1,0){30}}
+\put(0,0){\line(0,1){1}}
+\put(30,0){\line(0,1){1}}
+
+% Xs
+\thicklines
+\put(3.5,1){\line(1,-1){1}}
+\put(4.5,1){\line(-1,-1){1}}
+\put(7.5,1){\line(1,-1){1}}
+\put(8.5,1){\line(-1,-1){1}}
+\put(9.5,1){\line(1,-1){1}}
+\put(10.5,1){\line(-1,-1){1}}
+\put(16.5,1){\line(1,-1){1}}
+\put(17.5,1){\line(-1,-1){1}}
+\put(19.1,1){\line(1,-1){1}}
+\put(20.1,1){\line(-1,-1){1}}
+\put(23.3,1){\line(1,-1){1}}
+\put(24.3,1){\line(-1,-1){1}}
+
+% x's
+\put(1.5,1.5){$x_0$}
+\put(5.5,1.5){$x_1$}
+\put(8.5,1.5){$x_2$}
+\put(13,1.5){$x_3$}
+\put(17.8,1.5){$x_4$}
+\put(21.2,1.5){$x_5$}
+\put(26.4,1.5){$x_n$}
+
+\end{picture}
+
+\bigskip \bigskip \bigskip
+
+\begin{picture}(30,2)
+
+% lines
+\put(0,0.5){\line(1,0){30}}
+\put(0,0){\line(0,1){1}}
+\put(30,0){\line(0,1){1}}
+
+% Xs
+\thicklines
+\put(3.5,1){\line(1,-1){1}}
+\put(4.5,1){\line(-1,-1){1}}
+\put(7.5,1){\line(1,-1){1}}
+\put(8.5,1){\line(-1,-1){1}}
+\put(16.5,1){\line(1,-1){1}}
+\put(17.5,1){\line(-1,-1){1}}
+
+% y's
+\put(1.5,1.5){$y_0$}
+\put(5.5,1.5){$y_1$}
+\put(12.0,1.5){$y_2$}
+\put(23.0,1.5){$y_m$}
+\end{picture} \end{center}
+
+\bigskip
+
+Our model is that the points for the $X$ process come from a
+stationary gamma renewal model with shape parameter $\nu$ and mean
+inter-point distance $1/2$, so that
+$$x_1, x_2, \ldots \sim \iid \text{gamma}(\nu, 2\nu)$$
+with density $f(x; \nu) = e^{-2 \nu x}(2\nu)^\nu x^{\nu-1} /
+\Gamma(\nu)$.
+
+\bigskip
+
+The distribution of $x_0$ is that which is required to give
+stationarity: $g(x;\nu) = 2[1-F(x;\nu)]$ where $F$ is the cdf of $f$.
+The last point $x_n$ is treated as censored.
+
+\bigskip
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Example 2} (continued)}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+The $Y$ process (what we observe) is obtained by thinning the $X$
+process: we flip a coin at each point in the $X$ process,
+independently; H $\to$ retain point; T $\to$ drop point.
+
+\bigskip
+
+The $Y$ process is also a renewal process.
+$$y_1, y_2, \ldots \sim \iid f^\star(x;\nu) = \sum_{k\ge 1} (1/2)^2
+f_k(y; \nu)$$
+where $f_k$ is the density of a gamma distribution with shape and rate
+parameters $k\nu$ and $2\nu$---the convolution of $f(y;\nu)$ with
+itself $k$ times.
+
+\bigskip
+
+The distribution of $y_0$ is
+\begin{eqnarray*}
+g^\star(y;\nu) & = & (1/2) g(y;\nu) + \sum_{k \ge 1} (1/2)^{k+1} (g *
+f_k)(y;\nu) \\
+& = & 1 - F^\star(y;\nu)
+\end{eqnarray*}
+where $F^\star$ is the cdf of $f^\star$.  Let $G^\star$ denote the cdf
+of $g^\star$.
+
+\bigskip
+
+Then $y$ contributes the following to the log likelihood for $\nu$:
+$$l(\nu;y) = \left\{ \begin{tabular}{lc}
+$\log[1 - G^\star(L;\nu)]$ & if $m = 0$ \\
+$\log g^\star(y_0;\nu) + \log g^\star(y_1;\nu)$ & if $m=1$ \\
+$\log g^\star(y_0;\nu) + \sum_{j=1}^{m-1} \log f^\star(y_j; \nu)$ & \\
+\hsptwo $+ \log g^\star(y_m; \nu)$  & otherwise
+
+\end{tabular} \right. $$
+
+\newpage
+
+\fontsize{30}{30} \selectfont
+
+\centerline{\textbf{Example 2} (continued)}
+
+\HRule
+
+\vsphalf
+
+\fontsize{20}{25} \selectfont
+
+We seek to maximize $\sum_i l(\nu; y_i)$ where $y_i$ is a
+vector like that we played with above.
+
+\bigskip
+
+To calculate $l(\nu; y_i)$, we need to be able to calculate
+\begin{eqnarray*}
+f^\star(y;\nu) & = & \sum_{k=1}^\infty (1/2)^k f_k(y;\nu) \\
+g^\star(y;\nu) & = & 1 - F^\star(y; \nu) = \int_{y}^\infty
+f^\star(t;\nu) \; dt \\
+1 - G^\star(y;\nu) & = & \int_{y}^\infty [1-F^\star(t;\nu)] \; dt
+\end{eqnarray*}
+
+\bigskip
+
+$f^\star(y;\nu)$ was calculated using (``by use of'') its explicit
+formula, summing over $k$ from 1 to 25.
+
+\bigskip
+
+$g^\star(y;\nu)$ was calculated by numerical integration of
+$f^\star$. (I used Simpson's rule, replacing the upper limit of the
+integral with some large value.  Clearly I could have done better!)
+
+\bigskip
+
+$G^\star(y;\nu)$ was calculated by a nested numerical integral.  I'm
+sure I could have done better!
+
+\bigskip \bigskip
+
+To get the MLE $\hat{\nu}$, we are in the enviable situation of
+optimizing a function of one variable, $\sum_i l(\nu; y_i)$.  I used
+``Brent's method'' (pulled from \emph{Numerical Recipes in C}).
+
+\end{document}

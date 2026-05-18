@@ -1,0 +1,120 @@
+\documentclass[]{article}
+
+\usepackage{times,amsmath}
+
+% revise margins
+\setlength{\headheight}{0.0in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\footskip}{0.0in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\parindent}{0in}
+
+\newcommand{\hsp}{\hspace*{0.2cm}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+
+{ \large
+Assignment 1 \hfill 140.778 (Adv Stat Comp)
+\\
+Due: 29 Nov \hfill 2nd term, 2000--2001 }
+
+\bigskip \bigskip
+
+{\large \textbf{The bootstrap in linear regression}}
+
+\bigskip 
+
+\textbf{Part A}
+
+\smallskip
+
+Consider the model $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, $i = 1,
+\ldots, n$, where 
+\begin{itemize}
+  \item $x_i \sim \text{ iid U}(0,10)$ \hsp or \\
+      $x_i \sim \text{ iid N}(\mu=5, \sigma^2=3)$
+  \item $\varepsilon_i \sim \text{ iid N}(0, \sigma^2)$ \hsp or \\
+        $\varepsilon_i \sim \text{ indep N}(0, \sigma^2x_i)$ \hsp or \\
+        $\varepsilon_i/\gamma \sim \text{ iid t}(\text{df} = 3)$ \hsp or \\
+        $\varepsilon_i + 1/\lambda \sim \text{ iid exponential}(\lambda)$
+\end{itemize}
+
+Write a function (in R, S-plus, or your favorite such package) to
+simulate such data, where you allow the user to specify $n$, the
+models for the $x_i$ and the $\varepsilon_i$ and the unknown
+parameters $\beta_0$, $\beta_1$ and $\sigma^2$, $\gamma$ or
+$\lambda$.  
+
+\bigskip
+
+\textbf{Part B}
+
+\smallskip
+
+\begin{enumerate}
+
+\item Download the comma-delimited file \verb|data1.csv| from the
+  course web page. 
+
+\item Fit the linear model $y = \beta_0 + \beta_1 x + \varepsilon$
+  where the $\varepsilon$ are assumed to be iid N$(0, \sigma^2)$.
+  Obtain, using the normal theory, estimates and estimated standard
+  errors (SEs) of $\hat{\beta}_0$ and $\hat{\beta}_1$ and confidence
+  intervals (CIs) for $\beta_0$ and $\beta_1$.  Also get an estimate
+  of the correlation between $\hat{\beta}_0$ and $\hat{\beta}_1$.  
+
+\item Use a parametric bootstrap (ie, Monte Carlo simulation), using
+  the normal model, to get new SEs and CIs and estimated correlation.
+
+\item Use a nonparametric bootstrap, resampling the residuals, to get
+  another set of SEs, etc.
+
+\item Use a nonparametric bootstrap, resampling the pairs $(x,y)$, to
+  get a final set of SEs, etc.
+
+\item In at least one of 3--5, try to estimate the Monte Carlo error
+  in the estimated SEs and CIs.
+
+\item Discuss the results.  
+
+\end{enumerate}
+
+\bigskip
+
+\textbf{Part C}
+
+Use your simulation program from A to investigate the performance of
+the parametric bootstrap and the two nonparametric bootstraps as a
+function of the sample size $n$, the model for $\varepsilon_i$ and
+perhaps the model for the $x_i$.
+
+\bigskip
+
+\textbf{Notes}: 
+\begin{enumerate}
+\item You do not need to complete all aspects of this assignment in
+  great detail.  Use your judgement in deciding how much time you wish
+  to devote to it (considering your other responsibilities, your
+  interest, and your need for sleep).
+\item In reporting your results, \emph{do not\/} simply provide raw
+  computer output.  I expect to see the sort of report one might give
+  to a consulting client, with any computer code that you feel you
+  should include placed in an appendix.
+\item Feel free to ask me for advice, and feel free to work together.
+  The report, however, should be your own.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Useful R functions}: \\
+\verb|summary(a <- lm(y~x))|, \verb|sample|, \verb|rnorm|,
+\verb|rexp|, \verb|rt|, \verb|mean|, \verb|sd|, \verb|cor|, \verb|for|
+
+\end{document}

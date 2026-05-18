@@ -1,0 +1,118 @@
+<html>
+<head><title>Homework for lecture 1</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists II</h2>
+<h3>Solutions for the homework problems for lecture 1</h3>
+
+<ol> 
+<p><li>We have n<sub>A</sub>=78 and n<sub>B</sub>=22. We test that
+p<sub>A</sub>=0.75.
+<p>Typing either
+<pre>  round(binom.test(78, 100, 0.75)$p.value, 2)</pre>
+or
+<pre>  1 - pbinom(77, 100, 0.75) + pbinom(75-3, 100, 0.75)</pre>
+    
+returns 0.56 as a p-value.
+
+<!--
+<p><li> Type
+<pre>
+  p1 <- dbinom(78,100,0.78)
+  p2 <- dbinom(78,100,0.75)
+  G <- 2*log(p1/p2)
+</pre>
+to get the likelihood ratio test statistic. To write a function to
+carry out the likelihood ratio test, type
+<pre>
+  Gtest <-
+  function(x) {
+    ff <- c(75,25)
+    G <- 2*sum(x*log(x/ff))
+    return(G)
+  }
+</pre>
+Now run the simulation:
+<pre>
+  val.sim <- matrix(ncol=2,nrow=10000)
+  for (j in 1:10000) {
+    val.sim[j,1] <- rbinom(1,100,0.75)
+    val.sim[j,2] <- 100-val.sim[j,1]
+  }
+  ref.dist <- apply(val.sim,1,Gtest)
+</pre>
+Now count how many of those exceed the previously calculated test
+statistic G. Since we have discrete data, we could get ties. Add half
+the cases that tie G. Typing
+<pre>
+  round(mean(ref.dist>=G),2)
+</pre>
+yields a p-value of 0.49 in my case (you might get a slightly
+different p-value).
+
+<p>Note: this complicated test wasn't really necessary, but this
+example serves as a stepping stone for the next exercise.
+
+-->
+</ol>
+
+
+<p><li>We have the data n<sub>AA</sub>=35, n<sub>AB</sub>=43,
+n<sub>BB</sub>=22. We test that (p<sub>AA</sub>, p<sub>AB</sub>,
+p<sub>BB</sub>)=(0.25,0.5,0.25).
+<p><ol type="a">
+
+<p><li> Typing 
+<pre>
+  f <- c(25,50,25)
+  fhat <- c(35,43,22)
+  lnL <- sum(fhat*log(fhat/f))
+  G <- 2*lnL
+  round(1-pchisq(G,2),3)
+</pre>
+yields a p-value of 0.084.
+<p><li> Typing 
+<pre>
+  round(1-pchisq(sum((f-fhat)^2/f),2),3)
+</pre>
+or
+<pre>  chisq.test(c(35,43,22),p=c(0.25,0.5,0.25))</pre>
+yields a p-value of 0.069.
+
+<!--
+<p><li> Similarly to the above randomization test, we type
+<pre>
+  Gtest <-
+  function(x) {
+    ff <- c(25,50,25)
+    G <- 2*sum(x*log(x/ff))
+    return(G)
+  }
+
+  f <- c(25,50,25)
+  val.sim <- rmultinom(10000, 100, f/100)
+  ref.dist <- apply(val.sim,2,Gtest)
+
+  round(mean(ref.dist >= G),3)
+</pre>
+In my case, a p-value of 0.089 comes out of the randomization test.
+-->
+</ol>
+
+</ol>
+
+<hr>
+<p class=noindent>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="../index.html">Main page</a> | <a
+href="index.html">4th term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Tue Mar 28 17:52:38 EST 2006
+<!-- hhmts end -->
+</table></body></html>

@@ -1,0 +1,56 @@
+<html>
+<head><title>Homework for lecture 2</title></head>
+
+<style type="text/css">
+ADDRESS {font-family: Arial, Helvetica;}
+BODY    {font-family: Arial; font-size: 14px}
+TD      {font-family: Arial, Helvetica; font-weight: Bold;}
+P       {font-family: Arial; text-align: justify;}
+A:link  {text-decoration:none;}
+A:vlink {text-decoration:none;}
+H1      {font-family: arial; font-size: 25px}
+H2      {font-family: arial; font-size: 22px}
+H3      {font-family: arial; font-size: 17px}
+H4      {font-family: arial; font-style: italic;}
+PRE     {font-family: courier; font-size: 14px}
+</style>
+
+<body bgcolor="#FFFFFF" vlink=blue>
+
+<h2>Statistics for laboratory scientists (2)</h2>
+<h3>Homework problems for lecture 2</h3>
+
+<br>
+
+<p>
+This homework tries to clarify when asymptotic tests such as the
+likelihood-ratio test or the chi-square test are not appropriate. But
+remember, randomization tests can bail you out!
+
+<br><br>
+
+<p>
+Asymptotic tests might not be appropriate when you have only a small
+number of observations. Assume you have the hypothesis that the
+underlying ratio of cases in a genetic experiment are
+9:3:3:1. Consider six possibilities: the number of data points that
+you can observe being 5, 10, 20, 40, 80, or 160.  For each of those
+six possibilities, simulate 10,000 observations from a multinomial
+distribution with the appropriate probabilities according to the
+assumed ratio (for example rmultinom(n=5,p=(9/16,3/16,3/16,1/16)). For
+each observation in each of the six groups (n=5,...,160), calculate
+the chi-square test statistic.
+
+<ol type="a"> 
+<p><li><p> Plot a histogram of the test statistics for each of those six
+groups. Comment.
+<p><li><p> Explain why we can not use the likelihood-ratio test statistic
+to generate those plot.
+</ol>
+
+<br><br>
+
+<hr>
+Last modified: Thu Mar 28 14:02:06 EST 2002
+
+</body></html>

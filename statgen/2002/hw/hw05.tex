@@ -1,0 +1,68 @@
+\documentclass[12pt]{article}
+
+% revise margins
+\setlength{\headheight}{0.0in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\footskip}{0.0in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+
+\pagestyle{empty}
+\usepackage{times}
+\usepackage{amsmath}
+
+\begin{document}
+
+\noindent \textbf{Biostat 140.668} \hfill Problem set 5
+
+\bigskip 
+
+\noindent \textbf{QTL mapping: other single-QTL models}
+
+\begin{enumerate}
+
+\item Consider mapping a simple Mendelian disease gene using a
+backcross.  Suppose you have essentially complete genotype data, so
+that the exact locations of crossovers can be determined.  Let $L$
+denote the length (in cM) of the interval to which you will have
+mapped the gene with $n$ backcross individuals (i.e., the distance
+between the two closest flanking recombination events).
+
+\begin{enumerate}
+\item How many backcross individuals will you need so that $\text{E}(L) \le 1
+\text{ cM}$?
+
+\item How many backcross individuals will you need so that $\text{Pr}(L \le 1
+\text{ cM}) \ge 80\%$?
+\end{enumerate}
+
+\item Derive the extension of the Kruskal-Wallis statistic
+discussed in lecture, for nonparametric interval mapping.  
+
+Let $R_i$
+denote the ranks of the phenotypes, and let $p_{ig}$ denote the
+probability that mouse $i$ has QTL genotype $g$, given the available
+marker data.  Define $\bar{S}_g = \sum_i R_i p_{ig} / \sum_i p_{ig}$
+
+\begin{enumerate}
+\item Show that $\text{E}(\bar{S}_g \; | \; \text{marker data, no linkage}) =
+(n+1)/2$.
+
+\item Show that 
+$$\text{var}(\bar{S}_g \; | \; \text{marker data, no
+linkage}) = \left[ \frac{n+1}{12} \right] \; \left[\frac{n \sum_i
+p_{ig}^2 - (\sum_i p_{ig})^2}{(\sum_i p_{ig})^2} \right] $$
+
+\item Put it all together.
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+
+
+\end{document}

@@ -1,0 +1,25 @@
+# Sokal & Rohlf, Biometry 3rd edition
+# problem 16.3, pg 682
+#
+# sediment ingestion (est'd by cumulative number of fecal
+# pellets made of sedimentary particles by the mud snail 
+# Hydrobia minuta) 
+time,pellets
+6,119
+6,111
+6,87
+12,348
+12,210
+12,272
+18,438
+18,778
+18,548
+24,774
+24,896
+24,670
+42,896
+42,729
+42,886
+78,763
+78,954
+78,954

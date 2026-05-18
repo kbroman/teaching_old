@@ -1,0 +1,198 @@
+### Stat 877: Statistical methods for molecular biology (Spring, 2019)
+### Homework #3: QTL mapping, solutions
+
+```{r knitr_chunk_options, include=FALSE}
+knitr::opts_chunk$set(results="hide", fig.width=10,
+                      warning=FALSE, message=FALSE)
+set.seed(84268976)
+```
+
+#### Analyses
+
+I'll do all of the calculations first, and then summarize them, and
+then discuss them.
+
+I load the R/qtl package and the data, as follows:
+
+```{r load}
+library(qtl)
+hw <- read.cross("csv", "https://www.biostat.wisc.edu/~kbroman/teaching/uwstatgen",
+                 "hw3.csv")
+```
+
+I'll first perform standard interval mapping (IM) and Haley-Knott
+regression.
+
+```{r scanone}
+hw <- calc.genoprob(hw, step=1)
+out.em <- scanone(hw, method="em")
+out.hk <- scanone(hw, method="hk")
+```
+
+I then perform a standard permutation test by each method.
+
+```{r permutation, cache=TRUE}
+num_cores <- parallel::detectCores()
+n.perm <- 100
+operm.em <- scanone(hw, method="em", n.perm=n.perm, n.cluster=num_cores)
+operm.hk <- scanone(hw, method="hk", n.perm=n.perm, n.cluster=num_cores)
+```
+
+I then perform stratified permutation tests.
+
+```{r permutation_strat, cache=TRUE, depends="permutation"}
+nt <- ntyped(hw)
+strat <- as.numeric(nt > mean(nt))
+operm.em.strat <- scanone(hw, method="em", n.perm=n.perm, n.cluster=num_cores,
+                          perm.strat=strat)
+operm.hk.strat <- scanone(hw, method="hk", n.perm=n.perm, n.cluster=num_cores,
+                          perm.strat=strat)
+```
+
+I'll also do analyses when I omit the individuals that
+were not genotyped.
+
+```{r scanone_genotyped}
+hw_sub <- subset(hw, ind=(nt > 0))
+out.em.typed <- scanone(hw_sub, method="em")
+out.hk.typed <- scanone(hw_sub, method="hk")
+```
+
+Finally, I'll do permutation tests using just the genotyped
+individuals.
+
+```{r permutation_genotyped, cache=TRUE, depends="permutation"}
+operm.em.typed <- scanone(hw_sub, method="em", n.perm=n.perm, n.cluster=num_cores)
+operm.hk.typed <- scanone(hw_sub, method="hk", n.perm=n.perm, n.cluster=num_cores)
+```
+
+#### Summaries of the results
+
+First, a plot of the LOD curves, by each of standard interval mapping
+(with the EM algorithm) and Haley-Knott regression, using all
+individuals or just the genotyped individuals.
+
+```{r plot_scanone}
+plot(out.em, out.hk, col=c("blue", "red"))
+plot(out.em.typed, out.hk.typed, col=c("blue", "red"), lty=2, add=TRUE)
+legend("topright", lwd=2, lty=c(1,1,2,2), col=rep(c("blue","red"), 2),
+       c("EM, all", "HK, all", "EM, typed", "HK, typed"))
+```
+
+Haley-Knott regression with all individuals gives a very large LOD
+score on chromosome 1, and much higher LOD scores than the other
+methods on chromosomes 2, 4, and 5.  Haley-Knott and standard IM give
+similar results when we use only the genotyped individuals (in fact,
+_at the markers_, the two methods give _exactly the same results_ in
+this case); on
+chromosome 1, the LOD score is slightly larger when we focus on the
+genotyped individuals than we get from standard IM with all
+individuals. On the other five chromosomes, standard IM and HK with
+only the genotyped individuals give results that are very similar to
+standard IM with all individuals.
+
+Let's now look at the permutation thresholds.
+
+```{r perm_thresholds, results="markup"}
+alpha <- c(0.05, 0.20)
+thr.em <- summary(operm.em, alpha)
+thr.hk <- summary(operm.hk, alpha)
+thr.em.strat <- summary(operm.em.strat, alpha)
+thr.hk.strat <- summary(operm.hk.strat, alpha)
+thr.em.typed <- summary(operm.em.typed, alpha)
+thr.hk.typed <- summary(operm.hk.typed, alpha)
+thr <- cbind(thr.em, thr.em.strat, thr.em.typed,
+             thr.hk, thr.hk.strat, thr.hk.typed)
+colnames(thr) <- paste(rep(c("em", "hk"), each=3),
+                       rep(c("unstrat", "strat", "typed"), 2))
+thr
+```
+
+The unstratified and stratified permutation tests give similar
+thresholds for standard IM, but for Haley-Knott regression, the
+thresholds from the stratified permutation test are considerably
+higher than for the unstratified permutation test.
+
+Perhaps the biggest surprise in threshold for standard interval
+mapping when we use just the genotyped individuals. Haley-Knott
+regression with just the genotyped individuals gives a threshold
+that's similar to what we get when we use all individuals, but
+standard IM is giving a much larger 5% threshold (and you might have
+gotten a _very_ large threshold).
+
+Let's look at a histograms of all of those results.
+
+```{r perm_em_typed_hist, fig.height=10, dev.args=list(pointsize=18)}
+par(mfrow=c(3,2))
+br <- seq(0, 35, by=0.5)
+hist(operm.em, main="em, all", breaks=br)
+hist(operm.hk, main="hk, all", breaks=br)
+hist(operm.em.strat, main="em, strat", breaks=br)
+hist(operm.hk.strat, main="hk, strat", breaks=br)
+hist(operm.em.typed, main="em, typed", breaks=br)
+hist(operm.hk.typed, main="hk, typed", breaks=br)
+```
+
+Four of the six histograms look basically the same. The
+distribution for Haley-Knott with a
+stratified permutation test is uniformly larger. The distribution for
+EM with just the genotyped individuals looks about the same as the others
+on the left, but has a second mode out near 25-30. This is a common
+problem with standard IM when the phenotype distribution is not normal
+(and here, using only the genotyped individuals, it will be decidely
+non-normal): it has a tendency to give spuriously large LOD scores,
+occasionally.
+
+I'd asked you to indicate the significant QTL and 1.5-LOD scores by
+each approach. There's a trick to this:
+
+```{r summaries, results="markup"}
+out <- cbind(out.em, out.hk, out.em, out.hk, out.em.typed, out.hk.typed,
+             labels = paste(rep(c("em", "hk"), 3),
+                            rep(c("unstrat", "strat  ", "typed  "), each=2)))
+operm <- cbind(operm.em, operm.hk, operm.em.strat,
+               operm.hk.strat, operm.em.typed, operm.hk.typed)
+summary(out, perms=operm, alpha=0.05, format="tabByChr", pvalues=TRUE)
+```
+
+Four out of the six approaches are giving the same answer. Standard IM
+with only the genotyped individuals gave basically the same answer,
+though with a much larger p-value
+(`r round(mean(operm.em.typed >= max(out.em.typed[,3])), 3)`).
+Haley-Knott regression using all individuals and with the
+_unstratified_ permutation test also indicated that the QTL on chr 2
+and 5 were significant.
+
+The 1.5-LOD interval for the chr 1 locus is more narrow by Haley-Knott
+regression using all individuals: since the LOD scores are inflated,
+the 1.5 drop probably needs to be inflated, too.
+
+#### Discussion
+
+Haley-Knott regression gives inflated LOD scores when there is
+selective genotyping, as in this case. This can largely be corrected
+by the stratified permutation test (which will give an appropriately
+inflated significance threshold). It might be better to just focus
+on the genotyped individuals, but that is usually not an option:
+generally all individuals have _some_ genotype data, in the end.
+
+Standard interval mapping gives reasonable results with selectively
+genotyped individuals, and it doesn't make much difference whether a
+stratified or unstratified permutation test is used, though it would
+be best to use the _stratified_ permutation test, to conform to the
+nature of the data. Standard interval mapping can give crazy results
+when only the genotyped individuals are considered; it's best to use
+the full set of data.
+
+
+#### Here is my R setup
+
+```{r sessionInfo, results="markup"}
+sessionInfo()
+```
+
+
+
+<!-- following is to make it look nicer (to me) -->
+<link href="http://kevinburke.bitbucket.org/markdowncss/markdown.css" rel="stylesheet"></link>
+<link href="http://www.biostat.wisc.edu/~kbroman/markdown_modified.css" rel="stylesheet"></link>

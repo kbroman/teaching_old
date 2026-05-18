@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+
+% revise margins
+\setlength{\headheight}{0.0in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\footskip}{0.0in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+
+\usepackage{times}
+\usepackage{amsmath}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\noindent \textbf{Biostat 140.668} \hfill Solutions to Problem set 1
+
+\bigskip 
+
+\noindent \textbf{Meiosis, recombination, interference}
+
+\begin{enumerate}
+
+\item Let $m$ denote the number of crossovers in an interval of length $d$
+Morgans.  Then $m \sim \text{Poisson}(d)$.  The map function expresses
+the probability of a recombination event as a function of the genetic
+distance $d$.  But the probability of a recombination event is simply
+the probability that $m$ is odd.
+
+$$\Pr(m \text{ is odd})  =  \sum_{k=0}^{\infty} \Pr(m = 2k+1) 
+ =  \sum_{k=0}^{\infty} e^{-d} \frac{d^{2k+1}}{(2k+1)!}$$
+
+Note that 
+\begin{eqnarray*}
+e^d = \sum_{k=0}^{\infty} d^k/k! & = & 1 + d + d^2/(2!) +
+d^3/(3!) + \dots \\
+e^{-d} = \sum_{k=0}^{\infty} (-1)^k d^k/k! & = & 1
+- d + d^2/(2!) - d^3/(3!) + \dots
+\end{eqnarray*}
+
+Thus $e^d - e^{-d} = 2(d + d^3/(3!) + d^5/(5!) + \dots) = 2
+\sum_{k=0}^{\infty} d^{2k+1}/(2k+1)!$.
+
+And so $r = \Pr(m \text{ is odd}) = e^{-d} (e^{d} - e^{-d})/2 =
+(1-e^{-2d})/2$, which is the Haldane map function.
+\bigskip
+
+\item This is rather a cute problem.  If you toss $n \ge 1$ fair coins, the
+chance of obtaining an odd number of heads is 1/2.  
+
+The simplest solution is to use induction.  
+
+The cases $n=0$ and $n=1$ are obvious.  
+
+Suppose you toss $n+1$ fair coins, where $n \ge 1$.  Pr(odd number of
+heads in $n+1$ tosses) = Pr(odd number of heads in $n$ tosses)
+$\times$ Pr($n+1$st toss is tails) + Pr(even number of heads in $n$
+tosses) $\times$ Pr($n+1$st toss is heads) = \ldots = 1/2.
+
+
+\item This is a bit tricky.  
+
+Assume that the first chiamsa involves a random pair of non-sister
+chromatids, that the next chiasma involves exactly the opposite pair,
+and subsequent chiasmata alternate in their choice of strands.  This
+is strong chromatid interference.
+
+Assume that the locations of chiasmata on the four-strand bundle are
+according to a stationary renewal process with inter-arrival
+distribution gamma(shape=1/2, rate=1).  This is strong negative
+chiasma interference.
+
+Recall that if $X_1, X_2 \sim$ iid gamma(shape=1/2, rate=1), then $X_1
++ X_2 \sim$ gamma(shape=1, rate=1) $\equiv$ exponential(rate=1).  
+
+It should be clear, then, that the locations of crossovers on a random
+meiotic product follow a Poisson process, and so exhibit no crossover
+interference.
+
+
+\end{enumerate}
+
+
+
+
+\end{document}

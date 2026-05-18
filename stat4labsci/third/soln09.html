@@ -1,0 +1,108 @@
+<html> <head>
+<title>Solutions for homework for lecture 9</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for the homework problems for lecture 9</h3>
+
+<p><ol>
+  <li><p class=noindent><i>X</i> ~ normal(mean=5, SD=3).  Let <i>Z</i>
+       = (<i>X</i> - 5)/3.<p>
+       <ol type="a">
+       <li><p class=noindent>Pr(<i>X</i> &lt; 6) = Pr[<i>Z</i> &lt; (6
+	    - 5)/3] = Pr(<i>Z</i> &lt; 1/3) = (approx) <b>63%</b>.<p>
+       <li><p class=noindent>Pr(<i>X</i> &gt; 0) = Pr(<i>Z</i> &gt;
+	    -5/3) = Pr(<i>Z</i> &lt; 5/3) = (approx) <b>95%</b>.<p>
+       <li><p class=noindent>Pr(0 &lt; <i>X</i> &lt; 5) = Pr(<i>X</i>
+	    &gt; 0) - 1/2 = (approx) <b>45%</b>.<p>
+       <li><p class=noindent>Pr(2 &lt; <i>X</i> &lt; 8) = Pr[(2-5)/3
+	    &lt; <i>Z</i> &lt; (8-5)/3] = Pr(-1 &lt; <i>Z</i> &lt; 1)
+	    = (approx) <b>68%</b>.<p>
+       <li><p class=noindent>Pr(|<i>X</i> - 5| &gt; 2) = Pr(|<i>Z</i>|
+	    &gt; 2/3) = 2 &times; Pr(Z &lt; -2/3) = (approx) <b>50%</b>.
+     </ol><p>
+
+  <li><p class=noindent><i>Y</i> ~ normal(mean=200, SD=18).  Let <i>Z</i>
+       = (<i>Y</i> - 200)/18.<p>
+       <ol type="a">
+       <li><p class=noindent>Pr(<i>Y</i> &gt; 250) = Pr[<i>Z</i> &gt;
+	    (250-200)/18] = 1 - Pr[<i>Z</i> &lt; (250-200)/18] =
+	    (approx) <b>3/1000</b>.<p>
+       <li><p class=noindent>Pr(180 &lt; <i>Y</i> &lt; 220) =
+	    Pr(-20/18 &lt; <i>Z</i> &lt; 20/18) =
+	    Pr(<i>Z</i> &lt; 20/18) - Pr(<i>Z</i> &lt; -20/18) =
+	    (approx) <b>73%</b>.<p> 
+       <li><p class=noindent>Pr(|<i>Y</i> - 180| &gt; 20) = Pr(<i>Y</i> &gt;
+	    200) + Pr(<i>Y</i> &lt; 160) = 50% + Pr[<i>Z</i> &lt; (160
+	    - 200)/18] = (approx) <b>51%</b>.
+     </ol><p>
+
+  <li><p class=noindent>Let <i>L</i> ~ normal(mean=3.2, SD=0.8).  Let <i>Z</i>
+       = (<i>L</i> - 3.2)/0.8.<p>
+       <ol type="a">
+       <li><p class=noindent>Pr(<i>L</i> &gt; 4.5) = Pr[<i>Z</i> &gt;
+	    (4.5 - 3.2)/0.8] = 1 - Pr(<i>Z</i> &lt; 1.625) = (approx) <b>5%</b>.<p>
+       <li><p class=noindent>Pr(<i>L</i> &gt; 1.78) = 1 - Pr[<i>Z</i>
+	    &lt; (1.78 - 3.2)/0.8] = (approx) <b>96%</b>.<p>
+       <li><p class=noindent>Pr(2.9 &lt; <i>L</i> &lt; 3.6) =
+	    Pr[(2.9-3.2)/0.8 &lt; <i>Z</i> &lt; (3.6-3.2)/0.8] =
+	    (approx) <b>34%</b>.
+     </ol><p>
+     
+
+  <li><p class=noindent><i>X</i> and <i>Y</i> are independent,
+       <i>X</i> ~ binomial(<i>n</i>=5, <i>p</i>=0.1), and <i>Y</i> ~
+       binomial(<i>n</i>=5, <i>p</i>=0.4).
+       <p class=noindent>Thus, E(<i>X</i>) = 0.5 and SD(<i>X</i>) =
+       sqrt{5 &times; 0.1 &times; 0.9} = (approx) 0.67.
+       <p class=noindent>Similarly, E(<i>Y</i>) = 2.0 and SD(<i>Y</i>)
+       = (approx) 1.10.<p>
+       <ol type="a">
+       <li><p class=noindent>E(<i>X</i> + <i>Y</i>) = E(<i>X</i>) +
+	    E(<i>Y</i>) = 0.5 + 2.0 = <b>2.5</b>.<p>
+       <li><p class=noindent>Since <i>X</i> and <i>Y</i> are
+	    independent, SD(<i>X</i> + <i>Y</i>) =
+	    sqrt{SD(<i>X</i>)<sup>2</sup> + SD(<i>Y</i>)<sup>2</sup> =
+	    sqrt{0.67<sup>2</sup> + 1.10<sup>2</sup>} = (approx) <b>1.28</b>.<p>
+       <li><p class=noindent>E[(<i>X</i>+<i>Y</i>)/2] = 2.5/2 = <b>1.25</b><p>
+       <li><p class=noindent>SD[(<i>X</i>+<i>Y</i>)/2] = (approx)
+	    1.28/2 = <b>0.64</b>.<p> 
+       <li><p class=noindent>Note that <i>X</i> - <i>Y</i> = <i>X</i>
+	    + (-<i>Y</i>), and that E(-<i>Y</i>) = -E(<i>Y</i>) = -2.5 and
+	    SD(-<i>Y</i>) = E(<i>Y</i>) = (approx) 1.10.
+	    <p class=noindent>Thus, E(<i>X</i>-<i>Y</i>) = 0.5 - 2.0
+	    = <b>-1.5</b>.<p>
+       <li><p class=noindent>SD(<i>X</i> - <i>Y</i>) = SD(<i>X</i> +
+	    <i>Y</i>) = (approx) <b>1.28</b>.
+     </ol><p>
+     
+  <li><p class=noindent><i>X</i><sub>1</sub>,
+       <i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>, ...,
+       <i>X</i><sub>10</sub> are iid with mean=3 and SD=3.<p>
+       <ol type="a">
+       <li><p class=noindent>E(<i>X</i><sub>1</sub> + <i>X</i><sub>2</sub> + ... + 
+       <i>X</i><sub>10</sub>) = 10 &times; 3 = <b>30</b>.<p>
+       <li><p class=noindent>SD(<i>X</i><sub>1</sub> + <i>X</i><sub>2</sub> + ... + 
+       <i>X</i><sub>10</sub>) = sqrt{10} &times 3 = (approx) <b>9.5</b>.<p>
+       <li><p class=noindent>E[(<i>X</i><sub>1</sub> + <i>X</i><sub>2</sub> + ... + 
+       <i>X</i><sub>10</sub>)/10] = <b>3</b>.<p>
+       <li><p class=noindent>SD[(<i>X</i><sub>1</sub> + <i>X</i><sub>2</sub> + ... + 
+       <i>X</i><sub>10</sub>)/10] = 3 / sqrt{10} = (approx) <b>0.95</b>.
+     </ol><p>
+
+</ol>
+
+<hr>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Wed Feb 22 09:44:07 EST 2006
+<!-- hhmts end -->
+</table></body></html>

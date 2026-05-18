@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Code for Assignment 2</title>
+</head>
+
+<body bgcolor="#fffff5" text="#000000" link="#cc3391" alink="#0000ff" vlink="#660066">
+
+<h2><font color="#23238e">140.778 Adv Stat Comp <br>Code for
+Assignment 2</font></h2> 
+
+<p> <hr>
+
+<code><pre><font color="#23088e"><font color="#cc3391"># simulate x data</font>
+sim.x <-
+function(n=50,rho=0.5)
+{
+  x <- matrix(runif(n*3),ncol=3)
+  v <- chol(matrix(c(1,rho,rho,rho,1,rho,rho,rho,1),ncol=3))
+  x <- t(t(x %*% t(v))*c(5,1,20) + c(10,5,20))
+  x <- as.data.frame(x)
+  names(x) <- c("x1","x2","x3")
+  x
+}
+
+<font color="#cc3391"># simulate y data with censoring</font>
+sim.data <-
+function(x=sim.x(),beta=c(10,0.5,1,-0.5),sigma=2,censor=10)
+{
+  y <- as.numeric(as.matrix(cbind(1,x)) %*% beta) + rnorm(nrow(x),0,sigma)
+  y[y > censor] <- censor
+
+  data.frame(x,y=y)
+}
+
+  
+<font color="#cc3391"># calculate negative log likelihood</font>
+negloglik <-
+function(theta,d,censor=max(d$y))
+{
+  y <- d$y
+  X <- as.matrix(cbind(1,d[,-ncol(d)]))
+  beta <- theta[-length(theta)]
+  sigma <- theta[length(theta)]
+  
+  loglik <- y
+  o <- y < censor
+  loglik[o] <- log(dnorm(y[o],X[o,] %*% beta, sigma))
+  loglik[!o] <- log(1-pnorm(censor, X[!o,] %*% beta, sigma))
+
+  -sum(loglik)
+}
+
+
+<font color="#cc3391"># LS fit ignoring censoring</font>
+fit1 <-
+function(d)
+{
+  a <- summary(lm(y ~ . , data=d))
+
+  b <- a$coef
+  d <- a$sigma
+
+  <font color="#cc3391"># calculate SEs and correlation</font>
+  V <- a$cov * d^2
+  se <- sqrt(diag(V))
+  rho <- V / rep(se,length(se)) / rep(se,rep(length(se),length(se)))
+
+  list(theta=c(b[,1],d),se=se,cor=rho)
+}
+
+  
+<font color="#cc3391"># fit using the nlm function</font>
+fit2 <-
+function(d,...)
+{
+  start <- fit1(d)[[1]]
+  o <- nlm(negloglik,start,d=d,censor=max(d$y),hessian=T,...)
+
+  <font color="#cc3391"># calculate SEs and correlation</font>
+  V <- solve(o$hessian)
+  se <- sqrt(diag(V))
+  rho <- V / rep(se,length(se)) / rep(se,rep(length(se),length(se)))
+
+  list(theta=o$est,se=se,cor=rho,o)
+}
+
+
+<font color="#cc3391"># fit using the EM algorithm</font>
+fit3 <-
+function(d, start=fit1(d)$theta, censor=max(d$y),
+         tol1=1e-8, tol2=tol1*100, maxit=1000, prnt=FALSE)
+{
+  y <- d$y
+  o <- (y < censor)
+  X <- as.matrix(cbind(1,d[,-ncol(d)]))
+
+  H <- function(v) dnorm(v)/(1-pnorm(v))
+
+  theta.old <- start
+  p <- length(start)
+  n <- length(y)
+
+  for(i in 1:maxit) {
+
+    <font color="#cc3391"># E step</font>
+    w <- y       <font color="#cc3391"># Expected observation</font>
+    wsq <- y^2   <font color="#cc3391"># Expected observation^2</font>
+    
+    mu <- X[!o,] %*% theta.old[-p]
+    w[!o] <- mu + theta.old[p] * H((censor - mu)/theta.old[p])
+
+    wsq[!o] <- mu^2 + theta.old[p]^2 + theta.old[p] * (censor + mu) *
+      H((censor-mu)/theta.old[p])
+
+    <font color="#cc3391"># M step</font>
+    mu <- X %*% theta.old[-p]
+    theta <- c(lm(w ~ -1 + X)$coef,
+               sqrt((sum(wsq) - 2*sum(mu*w) + sum(mu^2))/n))
+
+    if(prnt) {
+      nll <- negloglik(theta,d,censor)
+      print(c(i,nll,theta))
+    }
+
+    <font color="#cc3391"># check convergence</font>
+    if(all(abs(theta - theta.old) < tol1 * (abs(theta.old)+tol2))) break;
+
+    theta.old <- theta
+
+  }
+
+  theta
+}  
+</font></pre></code>
+
+<p> <hr> <font size=2>
+kbroman at jhsph.edu<br>
+<a href="http://www.biostat.wisc.edu/~kbroman" target="_parent">
+http://www.biostat.wisc.edu/~kbroman</a> <br> <br>
+<!-- hhmts start -->
+Last modified: Wed Apr 15 23:10:12 2009
+<!-- hhmts end -->
+</font></body></html>

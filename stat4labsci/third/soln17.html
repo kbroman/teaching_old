@@ -1,0 +1,48 @@
+<html> <head>
+<title>Solutions for homework for lecture 17</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for the homework problems for lecture 17</h3>
+
+<p><ol>
+  <li><p class=noindent>
+       <ol type="a">
+        <li><p class=noindent>In R, do the following:
+
+	     <p class=noindent><code>C <- qt(0.975, 23) #
+	     critical value<br>
+	     se <- 15*sqrt(1/15 + 1/10) # true standard error of the
+	     mean difference<br>
+	     1 - pt(C, df=23, ncp=10/se) + pt(-C, df=23,
+	     ncp=10/se)</code>
+
+	     <p class=noindent>The answer: <b>Power = 34.7%</b><p>
+
+
+        <li><p class=noindent><code>C <- qt(0.975, 23) #
+	     critical value<br>
+	     se <- 15*sqrt(1/15 + 1/10) # true standard error of the
+	     mean difference<br>
+	     1 - pt(C, df=23, ncp=20/se) + pt(-C, df=23,
+	     ncp=20/se)</code>
+
+	     <p class=noindent>The answer: <b>Power = 87.8%</b>
+	     </ol>
+</ol>
+
+<hr>
+<p class=noindent>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Thu Mar  2 12:53:47 EST 2006
+<!-- hhmts end -->
+</table></body></html>

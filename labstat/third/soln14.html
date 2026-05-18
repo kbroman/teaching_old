@@ -1,0 +1,68 @@
+<html> <head>
+<title>Solutions for homework for lecture 14</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for the homework problems for lecture 14</h3>
+
+<p><ol>
+  <li><p class=noindent>The pooled estimate of the population SD is
+       sqrt{ [10.67<sup>2</sup> &times; 9 + 9.30<sup>2</sup> &times;
+       4] / 13 } = <b>10.27</b>.
+       <p class=noindent>The estimated SE of the difference between
+       the sample means is 10.27 &times; sqrt{ 1/10 + 1/5 } =
+       <b>5.62</b>
+       <p class=noindent>The 97.5 percentile of the t distribution
+       with 13 degrees of freedom is <b>2.16</b>. (In R, use
+       <code>qt(0.975,13)</code>.) 
+       <p class=noindent>Thus the 95% confidence interval is (103-67)
+       &plusmn; 2.16 &times; 5.62 = <b>36 &plusmn; 12</b> = <b>(24,
+       48)</b>.
+       <p class=noindent>In R, if <code>x</code> is the data for
+       the sample from strain A and <code>y</code> is the data for the
+       sample from strain B, type
+       <code>t.test(x,y,var.equal=TRUE)</code> to get the above
+       confidence interval.
+       
+  <li><ol type="a">
+       <li><p class=noindent>The 97.5 percentile of the t distribution
+	    with 5 degrees of freedom = <code>qt(0.975, 5)</code> =
+	    2.57.
+	    <p class=noindent>Thus the 95% confidence interval for the
+	    population mean is 100.8 &plusmn; 2.57 &times; 8.28 /
+	    sqrt{6} = <b>100.8 &plusmn; 8.7</b> = <b>(92.1, 109.5)</b>.<p>
+       <li><p class=noindent>The 95% confidence interval for the
+	    population SD is (8.28 &times; sqrt{5/12.8}, 8.28 &times;
+	    sqrt{5/0.831}) = <b>(5.2, 20.3)</b>.
+     </ol><p>
+
+  <li><p class=noindent>The difference between the sample means is
+       96.58-92.33=4.25.  Our estimate of the standard error of the
+       difference between the sample means is
+       sqrt{29.09<sup>2</sup>/12 + 12.17<sup>2</sup>/9} = 9.33.
+       <p class=noindent>The "degrees of freedom" parameter we use for
+       the t-distribution is [29.09<sup>2</sup>/12 +
+       12.17<sup>2</sup>/9]<sup>2</sup> /
+       {[29.09<sup>2</sup>/12]<sup>2</sup>/11 +
+       [12.17<sup>2</sup>/9]<sup>2</sup>/8} = 15.56.
+       <p class=noindent>The 97.5 percentile of the t distribution
+       with 15.56 degrees of freedom = <code>qt(0.975, 15.56)</code> = 2.12.
+       <p class=noindent>Finally, the 95% confidence interval for the
+       difference between the population means is 4.25 &plusmn; 2.12
+       &times; 9.33  = <b>4.3 &plusmn; 19.8</b> = <b>(-15.6, 24.1)</b>.
+</ol>
+
+<hr>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Wed Feb 22 09:43:23 EST 2006
+<!-- hhmts end -->
+</table></body></html>

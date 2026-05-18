@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Additional comments</title>
+</head>
+
+<body bgcolor="#fffff5" text="#000000" link="#cc3391" alink="#0000ff" vlink="#660066">
+
+<h2><font color="#23238e">140.778 Adv Stat Comp <br> Additional comments</font></h2> 
+
+<p> <hr>
+
+<a name="1nov"><h3><font color="#23238e">1 November</font></h3>
+
+<ol>
+<li> As Rui Feng mentioned, you can use the functions
+<code>upper.tri</code> and <code>lower.tri</code> in R to refer to the
+upper and lower triangles of a matrix.  Consider the following code
+<blockquote><code><pre><font color="#23088e">x <- matrix(rnorm(80),ncol=8)
+<font color="#cc3391"># the following are equivalent</font>
+x[lower.tri(x)] <- 0    
+x[row(x) > col(x)] <- 0    
+</font></pre></code></blockquote>
+
+<li> A slightly extended version of the Fisher's exact test example
+appears in K Lange (1999) Numerical analysis for statisticians.
+Section 21.7.
+    <p> Note that in my <code>fisher()</code> function, the line
+<blockquote><code><pre><font color="#23088e">a <- lapply(a, sample)
+</font></pre></code></blockquote>
+can be replaced by
+<blockquote><code><pre><font color="#23088e">a[[1]] <- sample(a[[1]])
+</font></pre></code></blockquote>
+since we don't need to permute
+<i>both</i> the row and column indices...permuting one or the other
+will suffice.
+</ol>
+
+<p> <hr>
+
+<a name="8nov"><h3><font color="#23238e">8 November</font></h3>
+
+<p> I should have mentioned that what I call the &#147;parametric
+bootstrap&#148; is often called &#147;Monte Carlo simulation.&#148;
+
+<p> <hr>
+
+<a name="13nov"><h3><font color="#23238e">13 November</font></h3>
+
+<p> To clarify the discussion on the QR vs the LU decomposition (I
+thank Rui Feng for this):  In the QR decomposition, X = QR where Q is
+orthonormal (Q'Q = I) and R is upper triangular.  In the LU
+decomposition, X = LU where L is lower triangular and U is upper
+triangular. 
+
+<p> If there were a lower-triangular, orthonormal Q, so that both the
+QR and LU decompositions were satisfied, then it would follow that Q
+was a diagonal matrix with entries &plusmn;1.  Clearly this would not
+work generally. (It would require that X be triangular, right?) 
+
+<p> <hr>
+
+<a name="11dec"><h3><font color="#23238e">11 December</font></h3>
+
+Here is my R code for MCMC in the T cell assay example.
+
+<blockquote><code><pre><font color="#23088e">mcmc.npem <-
+function(data,start=c(0.5,1.5,2.5,3.5,10,5,1),n=c(24,24,24,22),
+         nstep = 1000,tol=1e-10,prnt=FALSE)
+{
+
+  <font color="#cc3391"># npem package: does EM for these data</font>
+  <font color="#cc3391"># I use it here in order to calculate the log likelihood</font>
+  <font color="#cc3391">#      (npem.ll)</font>
+  require(npem)
+  
+  gp <- length(n)
+  N <- sum(n)
+  output <- matrix(nrow=nstep+1,ncol=length(start)+1)
+  output[1,] <- c(start,npem.ll(data,start))
+  wh <- rep(1:4,n)
+  
+  for(i in 1:nstep) {
+
+    <font color="#cc3391"># sample k's</font>
+    lam <- rep(start[1:gp],n)
+    maxk <- qpois(1-tol*100,lam)
+    k <- apply(cbind(data,lam,maxk),1,
+               function(x,absig,i) {
+                 a <- dpois(0:x[3],x[2]+tol)*
+                   dnorm(x[1],absig[1]+absig[2]*(0:x[3]),absig[3])
+                 sample(0:x[3],1,prob=a)
+               }, start[-(1:gp)],i)
+
+    <font color="#cc3391"># sample lambdas</font>
+    start[1:gp] <- rgamma(gp,tapply(k,wh,sum)+1,1/(n+1))
+    
+    <font color="#cc3391"># lin reg</font>
+    a <- summary(lm(data ~ k))
+    betahat <- a$coef[,1]
+    sig <- a$sigma
+    Vhat <- a$cov
+
+    <font color="#cc3391"># simulate sigma</font>
+    sig <- sig*sqrt((N-2)/rchisq(1,N-2))
+
+    <font color="#cc3391"># simulate a,b</font>
+    beta <- rnorm(2) %*% chol(Vhat * sig) + betahat
+    
+    start[-(1:gp)] <- c(beta,sig)
+
+    output[i+1,] <- c(start,npem.ll(data,start))
+
+    if(prnt) print(round(output[i+1,],2))
+
+  }
+  output
+}
+</font></pre></code></blockquote>
+
+
+
+<a name="13dec"><h3><font color="#23238e">13 December</font></h3>
+
+Here is my R code for the reversible jump MCMC example.
+
+<blockquote><code><pre><font color="#23088e"><font color="#cc3391"># simulate data from an inhomogenouse Poisson process
+#     whose rate function is a step function
+#
+# pos = location of steps (last value is the length
+#       of the interval considered and first value is 0)
+# h   = heights in each interval
+#</font>
+sim.dat <-
+function(pos=c(0,4,5,6,10),h=c(30,10,15,5))
+{
+  <font color="#cc3391"># lengths of intervals</font>
+  len <- diff(pos)
+
+  <font color="#cc3391"># Poisson counts</font>
+  n <- rpois(length(len),len * h)
+
+  left <- pos[-length(pos)]
+  right <- pos[-1]
+
+  <font color="#cc3391"># locations within intervals</font>
+  runif(sum(n),rep(left,n),rep(right,n))
+}
+
+
+<font color="#cc3391"># calculate the log likelihood for a set of data</font>
+loglik <-
+function(data, pos=c(0,3,5,6,10), h=c(40,10,25,5))
+{
+  <font color="#cc3391">#     I ran into trouble in the following if
+  #     there were no observed points between
+  #     some of the steps
+  #
+  # sum(log(h)*tapply(data,cut(data,pos),length)) - sum(h*diff(pos))</font>
+
+  n <- tapply(data,cut(data,pos),length)
+  n[is.na(n)] <- 0
+  sum(log(h)*n) - sum(h*diff(pos))
+}
+
+<font color="#cc3391"># prior = (lambda, alpha, beta, kmax)</font>
+green.mcmc <-
+function(data, prior=c(1,0.2,0.01,30),
+         pos=c(0,10), h=length(data)/pos[2],
+         nstep=44000)
+{
+  save.pos <- save.h <- vector("list",nstep+1)
+  save.pos[[1]] <- pos
+  save.h[[1]] <- h
+
+  save.loglik <- 1:(nstep+1)
+  save.steptype <- 1:nstep
+  save.accept <- 1:nstep
+
+
+  <font color="#cc3391"># calculate jump probabilities</font>
+  jump.prob <- matrix(ncol=4,nrow=prior[4]+1)
+  p <- dpois(0:prior[4],prior[1])/ppois(prior[4]+1,prior[1])
+  bk <- c(p[-1]/p[-length(p)],0)
+  bk[bk > 1] <- 1
+  dk <- c(0,p[-length(p)]/p[-1])
+  dk[dk > 1] <- 1
+  mx <- max(bk+dk)
+  bk <- bk/mx*0.9
+  dk <- dk/mx*0.9
+  jump.prob[,3] <- bk
+  jump.prob[,4] <- dk
+  jump.prob[1,2] <- 0
+  jump.prob[1,1] <- 1-bk[1]-dk[1]
+
+  <font color="#cc3391"># Steve Knox kindly identified the following error and fix
+  #jump.prob[-1,1] <- jump.prob[-1,2] <-
+  #  1-jump.prob[-1,3]-jump.prob[-1,4]</font>
+  jump.prob[-1,1] <- jump.prob[-1,2] <-
+    (1-jump.prob[-1,3]-jump.prob[-1,4])/2
+
+  <font color="#cc3391"># calculate starting loglik</font>
+  curloglik <- save.loglik[1] <- loglik(data,pos,h)
+
+  for(i in (1:nstep + 1)) {
+
+    <font color="#cc3391"># determine what type of jump to make</font>
+
+    save.steptype[i-1] <- wh <- sample(1:4,1,prob=jump.prob[length(h),])
+    if(wh==1) {
+      step <- ht.move(data,pos,h,curloglik,prior)
+      save.pos[[i]] <- pos
+      save.h[[i]] <- h <- step[[1]]
+      save.loglik[i] <- curloglik <- step[[2]]
+      save.accept[i-1] <- step[[3]]
+    }
+    else if(wh==2) {
+      step <- pos.move(data,pos,h,curloglik)
+      save.pos[[i]] <- pos <- step[[1]]
+      save.h[[i]] <- h
+      save.loglik[i] <- curloglik <- step[[2]]
+      save.accept[i-1] <- step[[3]]
+    }
+    else if(wh==3) {
+      step <- birth.step(data,pos,h,curloglik,prior,jump.prob)
+      save.pos[[i]] <- pos <- step[[1]]
+      save.h[[i]] <- h <- step[[2]]
+      save.loglik[i] <- curloglik <- step[[3]]
+      save.accept[i-1] <- step[[4]]
+    }
+    else {
+      step <- death.step(data,pos,h,curloglik,prior,jump.prob)
+      save.pos[[i]] <- pos <- step[[1]]
+      save.h[[i]] <- h <- step[[2]]
+      save.loglik[i] <- curloglik <- step[[3]]
+      save.accept[i-1] <- step[[4]]
+    }
+
+<font color="#cc3391">#    cat(i," ", length(pos)-1, "\n")</font>
+
+  }
+  list(pos=save.pos,h=save.h,loglik=save.loglik,
+       steptype=save.steptype,accept=save.accept)
+
+}
+
+
+ht.move <-
+function(data,pos,h,curloglik,prior)
+{
+  j <- sample(1:length(h),1)
+
+  newh <- h
+  newh[j] <- h[j]*exp(runif(1,-0.5,0.5))
+
+  newloglik <- loglik(data,pos,newh)
+  lr <- newloglik - curloglik
+
+  ratio <- exp(lr + prior[2]*(log(newh[j])-log(h[j])) - prior[3]*(newh[j]-h[j]))
+
+  if(runif(1,0,1) < ratio)
+    return(list(newh,newloglik,1))
+  else
+    return(list(h,curloglik,0))
+
+}
+
+
+pos.move <-
+function(data,pos,h,curloglik)
+{
+  if(length(pos)==3) j <- 2
+  else j <- sample(2:(length(pos)-1),1)
+  newpos <- pos
+
+  left <- pos[j-1]
+  right <- pos[j+1]
+  newpos[j] <- runif(1,left,right)
+
+  newloglik <- loglik(data,newpos,h)
+  lr <-  newloglik - curloglik
+
+  ratio <- exp(lr) * (right-newpos[j])*(newpos[j]-left)/
+    (right-pos[j])/(pos[j]-left)
+
+  if(runif(1,0,1) < ratio)
+    return(list(newpos,newloglik,1))
+  else
+    return(list(pos,curloglik,0))
+}
+
+
+birth.step <-
+function(data,pos,h,curloglik,prior,jump.prob)
+{
+  <font color="#cc3391"># new pos</font>
+  newpos <- runif(1,0,pos[length(pos)])
+  j <- sum(pos < newpos)
+  left <- pos[j]
+  right <- pos[j+1]
+
+  <font color="#cc3391"># get new heights</font>
+  u <- runif(1,0,1)
+  r <- (1-u)/u
+  newh.left <- exp(log(h[j]) - (right-newpos)*log(r)/(right-left))
+  newh.right <- newh.left * r
+
+  <font color="#cc3391"># ratio</font>
+  <font color="#cc3391"># recall that prior = (lambda, alpha, beta, maxk)</font>
+  k <- length(pos) - 2
+  L <- max(pos)
+
+  p.k <- log(dpois(k + 0:1,prior[1]))
+
+  <font color="#cc3391"># Steve Knox kindly identified the following error and fix
+  #prior.logratio <- p.k[2] - p.k[1] +  log(2*(k+1)*(2*k+3)) - 2*log(L) +
+  #  log(newpos-left) + log(right-newpos) - log(right-left) +
+  #    prior[2]*log(prior[3]) - lgamma(prior[2]) +
+  #      (prior[2]-1) * log(newh.left*newh.right/h[j]) -
+  #        prior[3]*(newh.left+newh.right - h[j])</font>
+  prior.logratio <- p.k[2] - p.k[1] +  log(2*(k+1)*(2*k+3)) - 2*log(L) +
+    log(newpos-left) + log(right-newpos) - log(right-left) +
+      prior[2]*log(prior[3]) - lgamma(prior[2]) +
+        (prior[2]-1) * log(newh.left*newh.right/h[j]) + # <<< - to +
+          prior[3]*(newh.left+newh.right - h[j])
+
+  proposal.ratio <- jump.prob[k+2,4]*L/jump.prob[k+1,3]/(k+1)
+  jacobian <- (newh.left + newh.right)^2/h[j]
+
+  <font color="#cc3391"># form new parameters</font>
+  newpos <- sort(c(pos,newpos))
+
+  if(j < 2) newh <- c(newh.left,newh.right)
+  else newh <- c(h[1:(j-1)],newh.left,newh.right)
+  if(j <= length(h)-1) newh <- c(newh,h[(j+1):length(h)])
+
+  newloglik <- loglik(data,newpos,newh)
+
+  lr <- newloglik - curloglik
+
+  ratio <- exp(lr + prior.logratio) * proposal.ratio * jacobian
+
+<font color="#cc3391">#  print(c(exp(lr),exp(prior.logratio),proposal.ratio,jacobian,ratio))</font>
+
+  if(runif(1,0,1) < ratio)
+    return(list(newpos,newh,newloglik,1))
+  else
+    return(list(pos,h,curloglik,0))
+
+}
+
+
+
+death.step <-
+function(data,pos,h,curloglik,prior,jump.prob)
+{
+  <font color="#cc3391"># pos to drop</font>
+  if(length(pos)==3) j <- 2
+  else j <- sample(2:(length(pos)-1),1)
+
+  left <- pos[j-1]
+  right <- pos[j+1]
+
+  <font color="#cc3391"># get new height</font>
+  h.left <- h[j-1]
+  h.right <- h[j]
+  newh <- exp(((right-pos[j])*log(h.right) + (pos[j]-left)*log(h.left))/(right-left))
+
+  <font color="#cc3391"># ratio</font>
+  <font color="#cc3391"># recall that prior = (lambda, alpha, beta, maxk)</font>
+  k <- length(pos) - 3
+  L <- max(pos)
+  p.k <- log(dpois(k + 0:1,prior[1]))
+  prior.logratio <- p.k[1] - p.k[2] -  log(2*(k+1)*(2*k+3)) + 2*log(L) -
+    log(pos[j]-left) - log(right-pos[j]) + log(right-left) -
+      prior[2]*log(prior[3]) + lgamma(prior[2]) -
+        (prior[2]-1) * log(h.left*h.right/newh) -
+          prior[3]*(h.left+h.right - newh)
+  proposal.ratio <- (k+1)*jump.prob[k+1,3]/jump.prob[k+2,4]/L
+  jacobian <- newh/(h.left + h.right)^2
+
+  <font color="#cc3391"># form new parameters</font>
+  newpos <- pos[-j]
+
+  if(j < 3) newh <- newh
+  else newh <- c(h[1:(j-2)],newh)
+  if(j <= length(h)-1) newh <- c(newh,h[(j+1):length(h)])
+
+  newloglik <- loglik(data,newpos,newh)
+
+  lr <- newloglik - curloglik
+
+  ratio <- exp(lr + prior.logratio) * proposal.ratio * jacobian
+
+<font color="#cc3391">#  print(c(exp(lr),exp(prior.logratio),proposal.ratio,jacobian,ratio))</font>
+
+  if(runif(1,0,1) < ratio)
+    return(list(newpos,newh,newloglik,1))
+  else
+    return(list(pos,h,curloglik,0))
+
+}
+</font></pre></code></blockquote>
+
+
+
+
+<p> <hr> <font size=2>
+kbroman at jhsph.edu<br>
+<a href="http://www.biostat.wisc.edu/~kbroman" target="_parent">
+http://www.biostat.wisc.edu/~kbroman</a> <br> <br>
+<!-- hhmts start -->
+Last modified: Wed Apr 15 23:02:36 2009
+<!-- hhmts end -->
+</font></body></html>
+
+

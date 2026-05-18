@@ -1,0 +1,56 @@
+<html>
+<head><title>Homework for lecture 4</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists II</h2>
+<h3>Solutions for the homework problems for lecture 4</h3>
+
+<ol> 
+  <li><p class=noindent>Here is the R code for creating the observed table.
+<pre>
+    mydata <- rbind( c(17, 259), c(7, 274), c(10, 264) )</pre>
+
+  <ol type="a">
+    <li><p class=noindent>Code for the chi-square test.
+<pre>
+    chi <- chisq.test(mydata)
+    chi                                           <font color="red"># stat=4.98; P-value = 0.083</font></pre>
+
+    <li><p class=noindent>For calculating the LRT
+	statistic and corresponding P-value, we can use the expected
+	counts given within the results of <code>chisq.test()</code>. 
+<pre>
+    ex <- chi$expected                            <font color="red"># expected counts</font>
+    lrt <- 2 * sum( mydata * log(mydata/ex) )     <font color="red"># value = 4.88</font>
+    1 - pchisq(lrt, 2)                            <font color="red"># P-value = 0.087</font></pre>
+
+    <li><p class=noindent>Perform Fisher's exact test using the
+	built-in function, <code>fisher.test()</code>.
+
+<pre>
+    fisher.test(mydata)                           <font color="red"># P-value = 0.084</font></pre>
+
+    <li><p class=noindent>Since the p-values are ~8%, we would
+	conclude that there is some evidence for a difference in the
+	survival rates for the three treatments, but it is not strong.
+
+</ol>      
+
+
+</ol>      
+
+<hr>
+<p class=noindent>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="../index.html">Main page</a> | <a
+href="index.html">4th term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Fri Mar 31 09:24:59 EST 2006
+<!-- hhmts end -->
+</table></body></html>

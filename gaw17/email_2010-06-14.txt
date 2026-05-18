@@ -1,0 +1,63 @@
+From: Vanessa Olmo [mailto:vanessa@business-endeavors.com] 
+Sent: Monday, June 14, 2010 5:36 PM
+To: Vanessa Olmo
+Subject: GAW17 Update
+ 
+GAW17 "Mini-Exome" Data Set Update
+ 
+We apologize for the delay in getting this data set out to you for
+analysis.  We encountered some unanticipated difficulties with the
+processing of the sequence data.  We have begun phenotype simulations
+and hope to have the data ready for distribution in about two weeks.
+We realize this leaves limited time for analysis and we will adjust
+the GAW schedule as much as we can to allow for this.  There is a data
+request form on the GAW web page:
+ 
+http://www.gaworkshop.org
+ 
+that you can fill in now and we will send you the data as soon as it
+becomes available.
+ 
+Some participants have asked for a fuller description of the data set
+so that they can begin to plan their analyses in advance of receiving
+the data.  We have exon sequence data for > 500 genes, spanning all
+autosomes, in > 600 unrelated individuals.  Not all regions were
+sequenced in all individuals; we have eliminated genes with few
+individuals sequenced and we are using haplotype information to impute
+missing genotypes so that all individuals will have data for all
+markers distributed.  Allele frequencies for the markers range from
+private variants to MAFs > 40%, with most variants being rare (over
+half MAF < 1%, only 1/10 MAF > 5%).  We will distribute marker
+genotypes, the genes to which they are assigned, chromosomal locations
+for these markers/genes, and limited annotation regarding placement of
+markers within exons.
+ 
+These genotypes will be used multiple times for several different
+simulated study designs.  First, there will be a set of unrelated
+individuals, with a one-to-one correspondence with the available set
+of sequenced unrelated individuals.  Second, these individuals will be
+used as the founders for a family-based sample, with genotypes dropped
+through extended pedigrees.  For those familiar with past GAW data
+sets, these pedigrees are based on the structures used for simulated
+data in GAWs 10 and 12, with an average of about 40 individuals per
+family.  Although the 1000 Genomes samples are drawn from multiple
+populations, population membership is not being taken into account in
+the simulations, either in assigning founders to families or in
+phenotype simulation.  Population effects may still exist, however,
+due to varying allele frequencies between groups.
+ 
+Some of the SNPs have been designated as functional for phenotype
+simulation.  I won?t go into much detail about the phenotype
+simulations for those who wish to remain blind to the ?answers?.
+There will be a common, dichotomous disease phenotype, multiple
+related quantitative risk factors, sex, and a dichotomous
+environmental factor.  There will be a range of underlying models and
+effect sizes.  We believe that the range of models being simulated
+will have something for everyone, but if your analysis plans depend on
+a specific type of model or effect being present, please inquire and
+we can tell you whether that model or effect is included in the
+simulation.
+ 
+There will be 200 replicates of the simulated phenotype data, all
+using the same set of marker data, as there was for the simulated
+GAW16 data.

@@ -1,0 +1,43 @@
+<html> <head>
+<title>Solutions for homework for lecture 15</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for the homework problems for lecture 15</h3>
+
+<p><ol>
+  <li><p class=noindent>The pooled estimate of the population SD is
+       sqrt{ [10.67<sup>2</sup> &times; 9 + 9.30<sup>2</sup> &times;
+       4] / 13 } = <b>10.27</b>.
+       <p class=noindent>The estimated SE of the difference between
+       the sample means is 10.27 &times; sqrt{ 1/10 + 1/5 } =
+       <b>5.62</b>
+       <p class=noindent>The 97.5 percentile of the t distribution
+       with 13 degrees of freedom is <b>2.16</b>. (In R, use
+       <code>qt(0.975,13)</code>.) 
+       <p class=noindent>Thus the 95% confidence interval is (103-67)
+       &plusmn; 2.16 &times; 5.62 = <b>36 &plusmn; 12</b> = <b>(24,
+       48)</b>.
+       <p class=noindent>In R, if <code>x</code> is the data for
+       the sample from strain A and <code>y</code> is the data for the
+       sample from strain B, type
+       <code>t.test(x,y,var.equal=TRUE)</code> to get the above
+       confidence interval.
+       
+</ol>
+
+<hr>
+<p class=noindent>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Sun Feb 26 00:14:00 EST 2006
+<!-- hhmts end -->
+</table></body></html>

@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Statistical computing</title>
+</head>
+
+<body bgcolor="#fffff5" text="#000000" link="#cc3391" alink="#0000ff" vlink="#660066">
+
+<h2><font color="#23238e">Advanced statistical computing (140.778)</font></h2> 
+
+<p>(3 units) Second term, 2000-2001 <br>
+Mon and Wed, 9:00 - 10:30am <br>
+W4007 Hygiene
+
+<h4><font color="#23238e">Summary</font></h4>
+
+<p> This is a course in modern statistics (i.e., statistics using the
+computer), for the sophisticated user of statistics and computers.  We
+will introduce topics in numerical analysis useful for statistical
+modeling and analysis.  We will focus on computing above statistics
+and algorithms above programming.  Example methods include
+deterministic and stochastic methods for optimization and integration,
+the EM algorithm, Monte Carlo simulation (both non-iterative and
+iterative), and kernel density estimation. Applications include
+Bayesian hierarchical models, mixture models, time series, nonlinear
+regression, smoothing, classification, and modern variable selection.
+
+<p> <b><font color="#23238e">Prerequisites</font></b>: 140.751-752 and
+140.771-772 or equivalent; computer programming required
+(e.g. R/S-Plus/Matlab and/or C/C++/Fortran).
+
+<p> Student evaluation will be based on two programming projects (to
+be done in R/S-Plus/Matlab or whatever else you may prefer).
+
+<p> <b><font color="#23238e">Note</font></b>: I will be trying to
+prepare documents to help people get started with C, perl and R.  See
+the following links.  [ <a href="http://www.biostat.wisc.edu/~kbroman/Cintro">C</a> | <a
+href="http://www.biostat.wisc.edu/~kbroman/perlintro">perl</a>
+| <a href="http://www.biostat.wisc.edu/~kbroman/Rintro">R</a> ]
+
+<h4><font color="#23238e">Syllabus (from 2000-2001)</font></h4>
+
+<table cellspacing="0" cellpadding="5">
+<tr>
+  <td valign="top">October<td align="right" valign="top">30
+  <td colspan="3" valign="top"><font color="#23238e">Introduction;
+  statistical computing in practice</font> <br> 
+      <font size="2">Notes: [ <a href="comp01.pdf">pdf (560k)</a> ]</font>
+
+<tr>
+  <td valign="top">November<td valign="top" align="right">1
+  <td valign="top" colspan="3"><font color="#23238e">R (in brief)</font> <br>
+      <font size="2">Notes: [ <a href="comp02.pdf">pdf (191k)</a> ]<br>
+      R problem set: [ <a
+  href="Rproblems/index.html">Data</a> | <a
+  href="Rproblems/Rproblems.pdf">Problems (pdf 13k)</a> | Solutions: <a
+  href="Rproblems/solnsA.R">Part A</a> / <a
+  href="Rproblems/solnsB.R">Part B</a> ] <br>
+  Reading: <a href="#MASS">MASS (ch 1-4)</a> <br>
+  <a href="addtl.html#1nov">Additional comments</a> </font>
+  
+
+<tr><td valign="top" height="10">
+
+<tr>
+  <td valign="top"><td valign="top" align="right">6
+  <td valign="top"><font color="#23238e">Random number generation</font> <br>
+  <font size="2">Notes: [ <a href="comp03.pdf">pdf (362k)</a> ]<br>
+  Reading: <a href="#NAS">NAS (ch 20)</a>; <a
+  href="#NRC">NRC (ch 7)</a>; <a href="#MASS">MASS (&sect; 5.2)</a></font>
+        
+<tr>
+  <td valign="top"><td valign="top" align="right">8
+  <td valign="top"><font color="#23238e">Permutation test and the
+  bootstrap</font> <br> 
+  <font size="2">Notes: [ <a href="comp04.pdf">pdf (208k)</a> ] <br>
+  Reading: <a href="#NAS">NAS (ch 22)</a>,
+  <a
+  href="http://www.amazon.com/exec/obidos/ASIN/0412042312/karlwbroman"
+ >Efron and Tibshirani</a> (&sect; 9.5) <br>
+  <a href="addtl.html#8nov">Additional comments</a> </font>
+
+
+<tr><td valign="top" height="10">
+<tr>
+  <td valign="top"><td valign="top" align="right">13
+  <td valign="top"><font color="#23238e">Numerical linear algebra</font> <br>
+  <font size="2">Notes: [ <a href="comp05.pdf">pdf (301k)</a> ]
+  <br>
+  Reading: <a href="#NAS">NAS (ch 8-9)</a>, <a href="#Thisted">Thisted
+  (ch 3)</a><br>  
+  <a href="addtl.html#13nov">Additional comments</a> <br>
+  Assignment 1 (due Nov 29): [ <a
+  href="assign1/assignment1.tex">latex (3.6k)</a> | <a
+  href="assign1/assignment1.pdf">pdf (17k)</a> | <a
+  href="assign1/data1.csv">data</a> ]</font>
+<tr>
+  <td valign="top"><td valign="top" align="right">15 
+  <td valign="top"><font color="#23238e">EM algorithm</font> <br>
+  <font size="2">Notes: [ <a href="comp06.pdf">pdf (243k)</a> ] <br>
+  Reading: <a href="#NAS">NAS (ch 10)</a></font>
+
+<tr><td valign="top" height="10">
+<tr>
+  <td valign="top"><td valign="top" align="right">20
+  <td valign="top"><font color="#23238e">Newton-Raphson, Fisher
+  scoring</font> <br>
+  <font size="2">Notes: [ <a href="comp07.pdf">pdf (133k)</a> ] <br>
+  Reading: <a href="#NAS">NAS (ch 11)</a>, <a href="#Thisted">Thisted
+  (ch 4)</a> </font>
+<tr>
+  <td valign="top"><td valign="top" align="right">22
+  <td valign="top"><font color="#23238e">Nonlinear regression,
+  iteratively reweighted least squares</font> <br>
+  <font size="2">Notes: [ <a href="comp08.pdf">pdf (254k)</a> ] <br>
+  Reading: <a href="#NAS">NAS (&sect; 11.4, 11.5)</a>, <a href="#Thisted">Thisted
+  (&sect; 4.5.5, 4.5.6)</a> </font>
+
+<tr><td valign="top" height="10">
+<tr>
+  <td valign="top"><td valign="top" align="right">27
+  <td valign="top"><font color="#23238e">EM algorithm
+  extensions</font> <br>
+  <font size="2">Notes: [ <a href="comp09.pdf">pdf (222k)</a> ] <br>
+  Reading: <a href="#NAS">NAS (ch 12)</a></font>
+<tr>
+  <td valign="top"><td valign="top" align="right">29
+  <td valign="top"><font color="#23238e">Downhill simplex method, L<sub>p</sub> regression and
+  constrained optimization</font> <br>
+  <font size="2">Notes: [ <a href="comp10.pdf">pdf (269k)</a> ] <br>
+  Reading: <a href="#NAS">NAS (ch 14)</a>, <a href="#NRC">NRC (&sect;
+  10.4)</a>, <a href="#Thisted">Thisted (&sect; 4.5.7)</a> <br>
+  Assignment 2 (due Dec 20): [ <a
+  href="assign2/assignment2.tex">latex (2.4k)</a> | <a
+  href="assign2/assignment2.pdf">pdf (13k)</a> | <a
+  href="assign2/data2.csv">data</a> | <a 
+  href="assign2/assign2_code.html">code</a> ]</font>
+
+<tr><td valign="top" height="10">
+<tr>
+  <td valign="top">December<td valign="top" align="right">4
+  <td valign="top"><font color="#23238e">Numerical integration</font><br>
+  <font size="2">Notes: [ <a href="comp11.pdf">pdf (345k)</a> ]<br>
+  Reading: <a href="#NAS">NAS (ch 16)</a>, <a href="#NRC">NRC (ch 4)</a>
+  </font>
+  <tr>
+  <td valign="top"><td valign="top" align="right">6
+  <td valign="top"><font color="#23238e">Hidden Markov models</font><br>
+  <font size="2">Notes: [ <a href="comp12.pdf">pdf (231k)</a> ]  <br>
+  Reading: <a href="#NAS">NAS (&sect; 23.3)</a></font>
+
+<tr><td valign="top" height="10">
+<tr>
+  <td valign="top"><td valign="top" align="right">11
+  <td valign="top"><font color="#23238e">Markov chain Monte Carlo I</font><br>
+  <font size="2">Notes: [ <a href="comp13.pdf">pdf (749k)</a> ]  <br>
+  Reading: <a href="#NAS">NAS (ch 24)</a> <br>
+  <a href="addtl.html#11dec">Additional comments</a> </font> 
+  <tr>
+  <td valign="top"><td valign="top" align="right">13
+  <td valign="top"><font color="#23238e">Markov chain Monte Carlo II</font><br>
+  <font size="2">Notes: [ <a href="comp14.pdf">pdf (1,334k)</a> ] <br>
+  <a href="addtl.html#13dec">Additional comments</a> </font> 
+
+<tr><td valign="top" height="10">
+<tr>
+  <td valign="top"><td valign="top" align="right">18
+  <td valign="top"><font color="#23238e">Tree-based models
+  (aka recursive partitioning) and neural networks</font><br>
+  <font size="2">Notes: [ <a href="comp15.pdf">pdf (220k)</a> ] <br>
+  Reading: <a href="#MASS">MASS (ch 10, &sect; 9.4)</a> 
+  </font>
+<tr>
+  <td valign="top"><td valign="top" align="right">20
+  <td valign="top"><font color="#23238e">Program design</font> <br>
+  <font size="2">Notes: [ <a href="comp16.pdf">pdf (423k)</a> ]<br>
+  Reading: <a href="#Sprog">S programming (&sect; 8.4)</a>, <a
+  href="http://www.biostat.wisc.edu/~kbroman/Rintro/manuals/R-exts.pdf"
+ >Writing R extensions [pdf (387k; 60 pgs)]</a>
+  </font>
+
+</table>
+
+<h4><font color="#23238e">Recommended books</font></h4>
+<ul>
+  <li> <a name="NAS">K Lange (1999) <a
+      href="http://www.amazon.com/exec/obidos/ASIN/0387949798/karlwbroman">Numerical
+      analysis for statisticians.</a>
+      Springer-Verlag, New York. <b>[Required.]</b> (&#147;NAS&#148;)
+  <li> <a name="Thisted"> RA Thisted (1988) <a href="http://www.amazon.com/exec/obidos/ASIN/0412013711/karlwbroman">Elements of statistical computing: Numerical
+      computation</a>.  Chapman and Hall, New York.
+  <li> P Spector (1994) <a
+      href="http://www.amazon.com/exec/obidos/ASIN/053419866X/karlwbroman">An introduction to S and S-PLUS</a>.  Wadsworth,
+      Belmont, CA. 
+  <li> <a name="MASS"> WN Venables and BD Ripley (1999) <a href="http://www.amazon.com/exec/obidos/ASIN/0387988254/karlwbroman">Modern applied statistics with
+      S-PLUS</a>, 3rd edition.  Springer-Verlag, New York. <b>[Highly
+      recommended for this course.]</b>  
+      [<a href="http://lib.stat.cmu.edu/S/MASS3/Compl.shtml"
+     >Online complements</a>]  (&#147;MASS&#148;)
+  <li> <a name="Sprog">WN Venables and BD Ripley (2000) <a href="http://www.amazon.com/exec/obidos/ASIN/0387989668/karlwbroman">S programming</a>.
+      Springer-Verlag, New York.
+  <li> BW Kernighan and DM Ritchie (1988) <a href="http://www.amazon.com/exec/obidos/ASIN/0131103628/karlwbroman">The C programming
+      language</a>, 2nd edition.  Prentice Hall, Englewood Cliffs, NJ.
+  <li> PJ Plauger (1992) <a href="http://www.amazon.com/exec/obidos/ASIN/0131315099/karlwbroman">The standard C library</a> .
+      Prentice Hall, Englewood Cliffs, NJ.
+  <li> <a name="NRC"> WH Press et al. (1992) <a href="http://www.amazon.com/exec/obidos/ASIN/0521431085/karlwbroman">Numerical recipes in C: The art of
+      scientific computing</a>, 2nd edition.  Cambridge University
+      Press. (&#147;NRC&#148;)
+  <li> BW Kernighan and R Pike (1999) <a href="http://www.amazon.com/exec/obidos/ASIN/020161586X/karlwbroman">The practice of programming</a>.
+      Addison-Wesley, Reading, MA.
+  <li> S Oualline (1992) <a href="http://www.amazon.com/exec/obidos/ASIN/1558512918/karlwbroman">C Elements of Style</a>.  M&T Books, San Mateo,
+      CA. 
+  <li> Various <a href="http://www.oreilly.com"
+     >O'Reilly</a> books:
+      <ul>
+	<li> <a href="http://www.amazon.com/exec/obidos/ASIN/0596001649/karlwbroman">Perl CD bookshelf</a>
+	<li> <a href="http://www.amazon.com/exec/obidos/ASIN/1565922840/karlwbroman">Learning perl</a>
+	<li> <a href="http://www.amazon.com/exec/obidos/ASIN/0596000278/karlwbroman">Programming perl</a>
+	<li> <a href="http://www.amazon.com/exec/obidos/ASIN/1565922433/karlwbroman">Perl cookbook</a>
+	<li> <a href="http://www.amazon.com/exec/obidos/ASIN/1565922573/karlwbroman">Mastering regular expressions</a>
+	<li> <a href="http://www.amazon.com/exec/obidos/ASIN/1565923065/karlwbroman">Practical C programming</a>
+	<li> <a href="http://www.amazon.com/exec/obidos/ASIN/1565924533/karlwbroman">Mastering algorithms with C</a>
+	<li> <a href="http://www.amazon.com/exec/obidos/ASIN/1565921127/karlwbroman">Programming with GNU software</a>
+	<li> <a href="http://www.amazon.com/exec/obidos/ASIN/156592312X/karlwbroman">High performance computing</a>
+      </ul>
+</ul>
+
+<h4><font color="#23238e">Recommended web sites</font></h4>
+<ul>
+  <li><a href="http://cran.us.r-project.org/">CRAN R
+Archive</a>
+  <li><a href="http://www.ens.gu.edu.au/robertk/R/index.html"
+target="_parent">R mailing lists</a>
+  <li> <a href="http://cran.us.r-project.org/doc/FAQ/R-FAQ.html"
+     >R FAQ</a>
+  <li><a href="http://www.stat.math.ethz.ch/S-FAQ">S
+FAQ</a>
+  <li><a href="http://lib.stat.cmu.edu/cgi-bin/iform?SNEWS"
+target="_parent">Search S-news archive</a>
+  <li><a href="http://lib.stat.cmu.edu">StatLib</a>
+  <li><a
+      href="http://www.biostat.wisc.edu/~kbroman/softlinks/perl.html">Perl links</a>
+  <li><a
+      href="http://www.biostat.wisc.edu/~kbroman/unix_tools">List of unix tools</a>
+  <li><a
+      href="http://www.biostat.jhsph.edu/~ririzarr/BIT">Biostat
+      IT committee</a>
+  <li>Introduction to [ <a
+      href="http://www.biostat.wisc.edu/~kbroman/Cintro">C</a> | 
+      <a
+      href="http://www.biostat.wisc.edu/~kbroman/perlintro">perl</a> |
+  <a
+      href="http://www.biostat.wisc.edu/~kbroman/Rintro">R</a> ]
+</ul>  
+
+<p> <hr> <font size=2>
+kbroman at jhsph.edu<br>
+<a href="http://www.biostat.wisc.edu/~kbroman">
+http://www.biostat.wisc.edu/~kbroman</a> <br> <br>
+<!-- hhmts start -->
+Last modified: Wed Apr 15 23:02:19 2009
+<!-- hhmts end -->
+</font></body></html>
+
+

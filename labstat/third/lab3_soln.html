@@ -1,0 +1,65 @@
+<html> <head>
+<title>Solutions for lab 3</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for lab 3</h3>
+
+<p class=noindent>All of the code that is needed to answer the
+questions is the following:
+
+<p><code>x <- berrios[berrios[,1]==1,2]<br>
+y <- berrios[berrios[,1]==4,2]<br>
+t.test(x)<br>
+t.test(y)<br>
+t.test(x,y)</code>
+
+
+<p class=noindent><ol>
+  <li><p class=noindent><i>Calculate a 95% confidence interval for the average intensity
+       at day 1.</i><p>
+
+       <p class=noindent>The 95% confidence interval is <b>(251, 303)</b><p>
+
+  <li><p class=noindent><i>Calculate a 95% confidence interval for the average intensity
+at day 4.</i>
+
+       <p class=noindent>The 95% confidence interval is <b>(408, 555)</b><p>
+
+  <li><p class=noindent><i>Calculate a 95% confidence interval for the difference between
+the average intensities 
+at days 1 and 4.</i><p>
+       <p class=noindent>The 95% confidence interval is <b>(-279,
+       -130)</b>, or (130, 279) for the reverse comparison.<p>
+
+
+<li><p class=noindent><i>Calculate the P-value for the test of the difference between the
+average intensities at days 1 and 4.</i>
+
+     <p class=noindent>The P-value is <b>3 &times; 10<sup>-4</sup></b><p>
+
+<li><p class=noindent><i>What do you conclude from these data?</i>
+
+     <p class=noindent>We conclude that the observed mean difference
+     is "statistically significant;" it could not reasonably be
+     ascribed to chance variation.<p>
+
+
+
+</ol>
+
+<hr>
+<p class=noindent>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><p class=small>
+<!-- hhmts start -->
+Last modified: Thu Mar 11 11:56:32 EST 2004
+<!-- hhmts end -->
+</table></body></html>

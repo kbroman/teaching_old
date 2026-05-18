@@ -1,0 +1,96 @@
+<html> <head>
+<title>Solutions for homework for lecture 2</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for the homework problems for lecture 2</h3>
+
+<p class=noindent><ol>
+  <li><p class=noindent>Regarding the pie charts:  <p>
+     <ol type="a">
+       <li><p class=noindent> <i>Name three things wrong with these figures.</i><p class=noindent>
+	    <ol type="i">
+	    <li><p class=noindent> The values in the pie charts don't add up to 100%.
+	    <li><p class=noindent> The three figures are not consistent in their
+		 assignments of colors/shading to groups.
+	    <li><p class=noindent> Pie charts are always awful.
+	  </ol><p class=noindent>
+       <li><p class=noindent> <i>Sketch an improved version of these figures.</i>
+
+<p class=noindent>I like the following bar charts.
+<p class=noindent><a href="soln02.jpg"><img 
+     src="soln02_th.jpg" alt="bar chart"></a><br>[Click on the figure
+     for a larger version.]     
+
+	    <p class=noindent> Here is the R code I used to make them:
+<p class=noindent><pre>datA <- c(19,28,34,42)
+datB <- c(44,54,65,72)
+datC <- c(72,68,60,49)
+
+par(mfrow=c(1,3),las=1)
+barplot(datA, col=c("black","gray50","gray75","white"),
+        names=c("W","Af Am", "H Am", "As Am"), ylim=c(0,100),
+        main="Participate in\n\ncaring for parents",
+        ylab="Percentage")
+barplot(datB, col=c("black","gray50","gray75","white"),
+        names=c("W","Af Am", "H Am", "As Am"), ylim=c(0,100),
+        main="Feel they should\n\ndo more",
+        ylab="Percentage")
+barplot(datC, col=c("black","gray50","gray75","white"),
+        names=c("W","Af Am", "H Am", "As Am"), ylim=c(0,100),
+        main="Do not expect care\n\nfrom their children",
+        ylab="Percentage")</pre>
+
+<p class=noindent>Note: The <code>\n</code> within the character
+	   string for the argument <code>main</code> (for placing the
+	   title on the plot) indicates the insertion of a line
+	   break.  (I inserted two line breaks to give a better space
+	   between the lines in the title.)  The argument
+	   <code>las=1</code> to the function <code>par</code>
+	   causes the numbers on the y-axis to be printed up-and-down
+	   rather than sideways.  The rest you can probably figure
+	   out.  If you can't, check out the R help files.  
+
+</ol><p class=noindent>
+	    
+
+
+<li><ol type="a">
+     <li><p class=noindent>mean=10.1; median=10.0; SD=1.1 <p>
+     <li><p class=noindent>Add 2 to the mean and median; the SD is unchanged<p>
+     <li><p class=noindent>Multiply the mean, median and SD by 10<p>
+     <li><p class=noindent>Multiply the mean and median by -10;
+	  multiple the SD by 10<p>
+     <li><p class=noindent>For the mean and median, add 2 and then
+	  multiply by 10 (new mean=121; new median=120).  For the SD,
+	  just multiply by 10 (new SD=11)<p>
+     <li><p class=noindent>For the mean and median, multiply by 10
+	  and then add 2 (new mean=103; new median=102).  For the SD,
+	  just multiply by 10 (new SD=11)</ol><p>
+
+<li><p class=noindent>Because the distribution has a long right tail,
+    the mean is larger than the median, and so the red and blue
+    segments are the median and mean, respectively.
+
+    <p class=noindent>The SD is about 15. (Think "typical deviation
+    from the average".)<p>
+
+<li><p class=noindent>The SD is about 3.  (Think "typical deviation
+    from the average".)<p>
+
+</ol>
+
+<hr>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Wed Feb 22 09:45:14 EST 2006
+<!-- hhmts end -->
+</table></body></html>

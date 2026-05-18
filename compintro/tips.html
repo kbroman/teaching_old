@@ -1,0 +1,327 @@
+<html> <head>
+<title>Various computing tips</title>
+<link rel=stylesheet type="text/css" href="../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Various computing tips</h2>
+
+<p><font size="2">[ <a href="#unix">Unix/Linux</a> | <a href="#emacs">Emacs</a> |
+<a href="#latex">LaTeX</a> | <a href="#r">R</a> | <!--<a href="#c">C</a> |-->
+<a href="#other">Other</a> ]</font>
+
+<p class=large>Send an email to <a
+href="http://www.biostat.wisc.edu/~kbroman">Karl Broman</a> (kbroman
+at jhsph.edu) if you have suggestions for additions, subtractions,
+clarifications, corrections, or modifications.
+
+<p><hr>
+
+<h3><a name="unix"></a>Unix/linux</h3>
+
+<ol class=noindent>
+  <li><code>xlsfonts</code> lists all the available fonts</code></li><p>
+
+  <li>A list of X windows colors is in the file
+      <code>/usr/X11R6/lib/X11/rgb.txt</code> or (on athena)
+      <code>/usr/openwin/lib/rgb.txt</code>
+      </li><p>
+
+  <li><code>scp</code> is great for transferring files between
+      machines. (e.g. <code>scp myfile athena:somedir/</code>)</li><p>
+
+  <li><font color="redorange">[linux]</font> <code>C-alt arrow</code>
+      switches between workspaces.</li><p>
+
+  <li><font color="redorange">[linux]</font> <code>convert</code> for
+      converting images between formats.</li><p>
+
+  <li>Put the following alias in your <code>.tcshrc</code> in order to
+      search all <code>.c</code> and <code>.h</code> files
+      recursively, find instances of a given word in the file, and
+      print those instances along with the file names.  (For example,
+      use <code>fnd main</code>)
+
+      <pre>  alias fnd 'find . -name "*.[ch]" -exec grep \~* {} \; -print'</pre></li><p>
+
+  <li>Differences between Windows, MacOS, and Unix in the character
+      used to indicate line endings in text files are a constant
+      annoyance.  One uses a line feed, one uses a carriage return,
+      and one uses both; I can never remember which.  But the
+      difference often causes problems.  If you load a text file into
+      <code>emacs</code> or <code>vi</code>, you can determine the
+      current format.  On enigma, use the commands
+      <code>dos2unix</code> and <code>unix2dos</code> to convert files
+      between formats.  Use <code>dos2unix -c Mac
+      <i>filename</i></code> if the file is in MacOS format.</li><p>
+
+</ol>
+
+<p><hr>
+
+<h3><a name="emacs"></a>Emacs</h3>
+
+<ol class=noindent>
+  <li><code>Ctrl-S</code> for searching.</li><p>
+
+  <li><code>Ctrl-x u</code> for <code>Ctrl-Shift-_</code> for
+      undo.</li><p>
+
+  <li><code>Esc-% (y/n/!)</code> for replacement.</li><p>
+
+  <li><code>Ctrl-number character</code> or <code>Esc-number
+      character</code> repeats that character.</li><p>
+
+  <li><code>!</code> in directory listing mode executes a shell
+      command on that file.</li><p>
+
+  <li>Automatically turn on syntax highlighting and active region
+      highlighting by adding the following to your <code>.emacs</code>
+      file:
+
+      <pre>  (global-font-lock-mode t)
+  (setq-default transient-mark-mode t)</pre></li><p>
+
+  <li>Use <code>emacs -nw</code> when using emacs remotely over a slow
+      connection.</li><p>       
+
+  <li>Look at <a href="http://www.biostat.wisc.edu/~kbroman">Karl</a>'s
+      <code>.emacs</code> file for examples of macros
+      (<code>~kbroman/.emacs</code>).</li><p>
+
+  <li>Use <code>Esc-x spell-word</code> to check the spelling of the
+      word on which you're currently sitting</li><p>
+
+  <li>To create a macro to put in your <code>.emacs</code> file:
+      <ul class=noindent>
+      <li>Create the macro:
+	  <ul class=noindent>
+	  <li><code>Ctrl-x (</code> to start recording.
+	  <li>Type a bunch of commands and/or text.
+	  <li><code>Ctrl-x )</code> to end recording.
+	</ul>
+      <li><code>Esc-x name-last-kbd-macro</code> or just <code>Esc-x
+	  name</code> to assign a name to the macro.
+      <li>Open your <code>.emacs</code> file.	   
+      <li><code>Esc-x insert-kbd-macro</code>
+	  </ul></li><p>
+</ol>  
+
+<p><hr>
+
+<h3><a name="latex"></a>LaTeX</h3>
+
+<ol class=noindent>
+  <li>See the local <a
+      href="http://www.biostat.jhsph.edu/tetex/helpindex.html">LaTeX documentation</a>.</li><p>
+
+  <li>Computer modern sans serif font: <code>\renewcommand{\familydefault}{cmss}</code></li><p>
+
+  <li>An easy way to revise margins:
+      <code>\usepackage{geometry}</code> (e.g., use
+      <code>\geometry{margin=1in}</code>)</li><p>
+
+  <li><code>natbib</code> for bibliographies</li><p>
+
+  <li>The <code>colortbl</code> package for creating color tables</li><p>
+
+  <li>A macro for getting a different version of the symbol for the
+      real numbers: <code>\newcommand\R{{I\!\!R}}</code></li><p>
+
+  <li><code>\usepackage{times}</code> to use a times font that is
+      generally rendered more nicely than computer modern.</li><p>
+
+  <li>To get a PDF file from a LaTeX document:<p>
+
+      <ol class="noindent" type="a">
+	<li>Sometimes <code>ps2pdf</code> gets the fonts mucked up.
+	    One way to avoid this:
+<pre>  latex myfile.tex
+  dvips -Ppdf -t letter -G0 myfile.dvi
+  ps2pdf myfile.ps</pre></li><p>
+
+	<li><code>dvipdfm</code> will also create a PDF file from a dvi file with
+	    the correct fonts.  For example,
+<pre>  latex myfile.tex
+  dvipdfm -p letter myfile.dvi</pre>
+
+	    Specifying the "letter" papersize is important because 
+	    the default may be a4.</li><p>
+
+	<li><font color="redorange">[linux]</font> Sometimes when
+	    you use <code>dvipdf</code>, the pdf file looks awful
+	    in the reader but prints okay; <code>dvipdfm</code>
+	    (free to download) gets around this.</li><p>
+
+	<li>The program
+	    <code>~ririzarr/bin/mydvipdf</code> has all
+	    the right options to make high quality pdf from dvi.
+	    Use <code>\usepackage{times}</code> to make sure the
+	    fonts exist.</li>
+      </ol></li><p>
+
+  <li>If you use (encapsulated) PostScript figures (e.g. from R),
+      <code>ghostscript</code> will occasionally automatically rotate
+      your figure 90 degrees when you convert your document to PDF.
+      The explanation is a little long but it is considered a
+      "feature".  You can disable this by doing:
+
+      <pre>setenv GS_OPTIONS "-dAutoRotatePages=/None"</pre>
+      at the shell (or the bash equivalent).</li><p>
+
+  <li>Use <code>texi2dvi --pdf</code> to include png files in latex
+      documents.  (See the vignettes in Rafael's packages.)
+
+  <li>The following can be used to increasing the spacing in tables.
+      <pre>  \renewcommand{\arraystretch}{1.3}
+  \renewcommand{\tabcolsep}{12pt}</pre></li><p>      
+
+  <li>Books:
+      <ul class=noindent>
+      <li><a
+	  href="http://www.amazon.com/exec/obidos/ASIN/0321173856/karlwbroman">H Kopka, PW Daly (1999) A guide to LaTeX, 4th edition.
+	  Addison-Wesley</a> [mostly for advanced users]</li>
+    </ul>
+
+</ol>  
+
+
+<p><hr>
+
+
+<h3><a name="r"></a>R</h3>
+
+<ol class=noindent>
+  <li>Turn off those damned significance asterisks!  Use
+      <code>options(show.signif.stars=FALSE)</code>, preferably in
+      your <code>.Rprofile</code> (see more about that file below).</li><p>
+
+  <li><code>expand.grid</code> is really handy if you need to plot a
+      2D function using <code>image</code>.</li><p>
+
+  <li><code>any</code> and <code>all</code> are useful (e.g.,
+      <code>any(is.na(mydata$age))</code>)</li><p>
+
+  <li>It's critical to get to know <code>lapply</code>,
+      <code>sapply</code>, and <code>tapply</code> intimately.</li><p>
+
+  <li>Lists are your friend.</li><p>
+
+  <li>The file <code>.Rprofile</code> can be used to load up packages
+      when starting R.  For example, it might contain:
+      <pre>  options(defaultPackages = c(getOption("defaultPackages"), "foreign", "MASS"))</pre>
+      You can put a <code>.Rprofile</code> file in your home directory
+      and others in certain working directories.  If one exists in a
+      working directory, it's used in place of your main one;
+      otherwise, the main one is used.</li><p>
+
+  <li><code>help(plotmath)</code> contains examples of 
+      mathematical symbols you can use in R.  Here's a really
+      complicated example:
+
+<pre>  plot(rnorm(100),rnorm(100),xlab=expression(hat(mu)[0]), ylab=expression(alpha^beta),
+       main=expression(paste("Plot of ", alpha^beta, " versus ", hat(mu)[0])))</pre>  </li><p>
+
+  <li><font color="redorange">[Windows]</font> R will interpret the
+      standard emacs key-bindings.  For example, if you have separate windows with
+      emacs and R running, you might use 
+      <code>Esc-w</code> to copy within emacs, <code>Alt-tab</code> to switch to
+      your R window</code>, and then <code>Ctrl-y</code> to yank/paste
+      into R.</li><p>
+
+  <li>If you don't like reading scientific notation, you can set
+      <code>options("scipen")</code> to some positive number to
+      penalize scientific notation.  For example, put
+      <code>options(scipen=4)</code> in your
+      <code>.Rprofile</code></li><p>
+
+  <li><code>stopifnot()</code> is useful for self-documenting
+      code.</li><p>
+
+  <li>png is better than postscript for graphs with oodles of
+      overlayed dots.</li><p>
+
+  <li>Functions should return values rather than print stuff.</li><p>
+
+  <li>If you create your own version of a <code>summary()</code>
+      function, the function <code>summary.myclass</code> shouldn't
+      print anything, but rather should return an object of class
+      <code>"summary.myclass"</code>.  You should then make another
+      function <code>print.summary.myclass()</code> which prints a
+      summary of that.</li><p>
+
+  <li>Use <code>gc()</code> to determine how much memory R is taking
+      up.  Use <code>object.size()</code> to detemine the amount of
+      memory taken up by particular objects in your workspace.
+      <code>memory.profile()</code> is useful sometimes to find out how much
+      memory is being used by different types of objects.
+
+  <li>Use <code>str()</code> to get a compact display of the internal
+      structure of a complex object.
+
+</ol>  
+
+<p><hr>
+
+<!--
+<h3><a name="c"></a>C</h3>
+
+<ol class=noindent>
+  <li><code>#include <assert.h></code> and <code>assert()</code> can be
+    useful for ensuring properly working code.
+
+  <li><code>abort()</code> can be useful.</li><p>
+
+  <li>There's something defined that says "calling C from R" that can
+      be used with <code>#ifdef</code> statements.</li><p>
+
+  <li><code>.Platform$dynlib.ext</code> could be important for calling
+      C from R.</li><p>
+</ol>  
+
+<p><hr>
+-->
+
+<h3><a name="other"></a>Other</h3>
+
+<ol class=noindent>
+  <li>To count the number of words in a PDF document: set the view
+  option in Acrobat Reader to "continuous", copy the whole document
+  and paste it into the text file, and then use <code>wc -w</code>
+  to count the number of words.
+
+  <li>In R (and Fortran), matrices are stored by columns.  (This is
+      important to know when moving matrices between C, R, and
+      Fortran.)</li><p>
+
+  <li>When testing code, think about different cases that might break
+      different parts of your code.  (For example, with matrix
+      multiplication, consider really tall by really wide
+      vs. really wide by really tall.)</li><p>
+
+  <li><a href="http://www.mozilla.org/products/firefox/">Mozilla
+      Firefox</a> (previously called Firebird) is a really good
+      multi-platform web browser with tabbed browsing (who could live
+      with out it?) and mouse gestures (who over 30 has any idea what
+      this is?).</li><p>
+
+  <li><a href="http://www.knoppix.org/">knoppix</a> is a bootable linux distribution that you
+      can use if you want to try out linux without overwriting your
+      windows installation.</li><p>
+
+</ol>  
+
+<p class=noindent><hr>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+  <td align="left"><p class=noindent>
+<p><font size="2">[ <a href="#unix">Unix/Linux</a> | <a href="#emacs">Emacs</a> |
+<a href="#latex">LaTeX</a> | <a href="#r">R</a> | <!--<a href="#c">C</a> |-->
+<a href="#other">Other</a> ]</font>
+<!--<a href="index.html">Back to home page</a>-->
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Wed Apr 15 23:00:36 2009
+<!-- hhmts end -->
+</table></body></html>

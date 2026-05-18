@@ -1,0 +1,46 @@
+<html> <head>
+<title>Solutions for homework for lecture 13</title>
+<link rel=stylesheet type="text/css" href="../../../kbroman.css">
+</head>
+
+<body>
+
+<h2>Statistics for laboratory scientists</h2>
+<h3>Solutions for the homework problems for lecture 13</h3>
+
+<p><ol>
+  <li><p class=noindent><b>No</b>.  The correct statement would be
+       something like, "95% of such confidence intervals would contain the
+       population mean."<p>
+
+  <li><p class=noindent>The confidence interval would be
+       <p align=center>xbar &plusmn; 1.96 &times; sigma / sqrt{n}
+       <p class=noindent>with width 2 &times; 1.96 &times; sigma /
+       sqrt{n}.
+       <p class=noindent>Thus we need to solve the following for n:
+       <p align=center>2 &times; 1.96 &times; 1.5 / sqrt{n} = 1
+       <p class=noindent>Thus n = (2 &times; 1.96 &times;
+       1.5)<sup>2</sup> = 34.6.
+       <p class=noindent>Thus we need to measure <b>at least 35 samples</b>.
+       This is too large!  We should get a more precise measuring
+       device.<p>
+
+  <li><p class=noindent>Sample mean = 3.496; sample SD = 0.301.  The
+       appropriate t-value (in R, use <code>qt(0.975, 4)</code>) is 2.776.
+       <p class=noindent>Thus the 95% confidence interval is 3.496
+       &plusmn; 2.776 &times; 0.301 / sqrt{5} = (approx) <b>3.50 &plusmn; 0.37</b> =
+       (approx) <b>(3.12, 3.87)</b>.
+
+</ol>
+
+<hr>
+<table cellspacing="0" cellpadding="0" width=100%>
+<tr>
+<td align="left"><p class=noindent>[ <a href="index.html">3rd term syllabus</a> |
+<a href="../fourth">4rd term syllabus</a> |
+      <a href="../../../Rintro/Rwin.html">R for Windows</a> ]
+<td align="right"><font size=1>
+<!-- hhmts start -->
+Last modified: Wed Feb 22 09:43:42 EST 2006
+<!-- hhmts end -->
+</table></body></html>
