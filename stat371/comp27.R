@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/comp27.R")
+url.show("https://kbroman.org/teaching/stat371/comp27.R")
 ######################################################################
 
 # The data used in this lecture are available at
@@ -21,7 +21,7 @@ url.show("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/comp27.R")
 # the total number of crossovers on the 22 autosomes in each of the male
 # and female meioses.
 
-meioses <- read.csv("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/meioses.csv")
+meioses <- read.csv("https://kbroman.org/teaching/stat371/meioses.csv")
 
 # need to make the family column a "factor" to get anova to work properly
 meioses$family <- as.factor(meioses$family)

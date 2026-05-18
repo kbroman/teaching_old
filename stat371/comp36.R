@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/comp36.R")
+url.show("https://kbroman.org/teaching/stat371/comp36.R")
 ######################################################################
 
 ###############################################
@@ -58,7 +58,7 @@ anova(lm.red, lm.out)
 ######################################################################
 # Striped Bass example
 ######################################################################
-bass <- read.csv("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/bass.csv",
+bass <- read.csv("https://kbroman.org/teaching/stat371/bass.csv",
                  comment.char="#")
 
 # plot y against each of the x's
@@ -131,7 +131,7 @@ summary(out2)
 ##############################
 # The final example
 ##############################
-sed <- read.csv("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/sediment.csv",
+sed <- read.csv("https://kbroman.org/teaching/stat371/sediment.csv",
                 comment.char="#")
 
 # fit model: Need to use I() to get the ^2 and ^3 to work

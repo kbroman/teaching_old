@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/comp22.R")
+url.show("https://kbroman.org/teaching/stat371/comp22.R")
 ######################################################################
 
 ######################################################################

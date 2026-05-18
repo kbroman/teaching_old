@@ -10,7 +10,7 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/comp04.R")
+url.show("https://kbroman.org/teaching/stat371/comp04.R")
 ######################################################################
 
 # Note the reference to "url.show" above, which you can use to download
@@ -18,10 +18,10 @@ url.show("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/comp04.R")
 
 # For Homework 2, the data set for the first problem (2.79) is
 # available at the following:
-#   http://www.biostat.wisc.edu/~kbroman/teaching/stat371/data_2-79.txt
+#   https://kbroman.org/teaching/stat371/data_2-79.txt
 
 # You can load this into R with the following:
-x <- scan("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/data_2-79.txt")
+x <- scan("https://kbroman.org/teaching/stat371/data_2-79.txt")
 
 # Type the name of the object (x) and you'll see the data.
 x
@@ -37,7 +37,7 @@ x
 # As an alternative, you can use the function read.table().  You'll want
 # to use the argument header=FALSE since the file doesn't have a label
 # for the data:
-x <- read.table("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/data_2-79.txt",
+x <- read.table("https://kbroman.org/teaching/stat371/data_2-79.txt",
                 header=FALSE)
 
 # This is a bit harder to work with, since the data are then a "data frame".

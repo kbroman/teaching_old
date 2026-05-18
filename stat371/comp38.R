@@ -10,13 +10,13 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/comp38.R")
+url.show("https://kbroman.org/teaching/stat371/comp38.R")
 ######################################################################
 ##############################
 # Spider mites example
 ##############################
 # The data 
-spiders <- read.csv("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/spiders.csv")
+spiders <- read.csv("https://kbroman.org/teaching/stat371/spiders.csv")
 
 # Fit the logistic regression model
 glm.out <- glm(n.dead/n ~ dose, data=spiders, weights=n,
@@ -47,7 +47,7 @@ ci.ld50 <- ld50 + c(-1,1) * qnorm(0.975) * se.ld50
 # Worms example
 ##############################
 # The data
-worms <- read.csv("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/worms.csv")
+worms <- read.csv("https://kbroman.org/teaching/stat371/worms.csv")
 
 # plot the data
 par(las=1)

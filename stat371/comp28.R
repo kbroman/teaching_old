@@ -10,14 +10,14 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/comp28.R")
+url.show("https://kbroman.org/teaching/stat371/comp28.R")
 ######################################################################
 
 # The data used in this lecture are available at
-#   http://www.biostat.wisc.edu/~kbroman/teaching/stat371/il10.csv
+#   https://kbroman.org/teaching/stat371/il10.csv
 
 # read data
-il10 <- read.csv("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/il10.csv")
+il10 <- read.csv("https://kbroman.org/teaching/stat371/il10.csv")
 
 # include log10(IL10) as a column
 il10 <- cbind(il10, logIL10=log10(il10$IL10))

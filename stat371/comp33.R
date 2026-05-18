@@ -10,14 +10,14 @@
 # lines contain code.
 #
 # You can view this file within R by typing:
-url.show("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/comp33.R")
+url.show("https://kbroman.org/teaching/stat371/comp33.R")
 ######################################################################
 
 ######################################################################
 # Fathers' and daughters' heights
 ######################################################################
 # Pearson & Lee (1906) data; 
-pear <- read.csv("http://www.biostat.wisc.edu/~kbroman/teaching/stat371/father_daughter.csv",
+pear <- read.csv("https://kbroman.org/teaching/stat371/father_daughter.csv",
                  comment.char="#")
 
 # plot the data
