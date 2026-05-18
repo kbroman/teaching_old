@@ -195,4 +195,4 @@ sessionInfo()
 
 <!-- following is to make it look nicer (to me) -->
 <link href="http://kevinburke.bitbucket.org/markdowncss/markdown.css" rel="stylesheet"></link>
-<link href="https://kbroman.org/markdown_modified.css" rel="stylesheet"></link>
+<link href="https://kbroman.org/teaching_old/markdown_modified.css" rel="stylesheet"></link>
